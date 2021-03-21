@@ -1,4 +1,4 @@
-package main;
+package interfejs;
 
 public class klasa {
 
