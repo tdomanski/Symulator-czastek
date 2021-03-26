@@ -8,6 +8,6 @@ import javax.swing.JPanel;
 public class MenuBoczne extends JPanel {
 	public MenuBoczne() 
 	{
-		//this.setLayout(new GridLayout(1,1));
+		//do ustawienia layout i na koniec add ;)
 	}
 }

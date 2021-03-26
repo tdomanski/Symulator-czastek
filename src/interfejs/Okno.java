@@ -23,7 +23,6 @@ public class Okno extends JFrame {
 		this.setVisible(true);
 		this.setSize(600,600);
 		this.setTitle("Program");
-		//add(this);
 	}
 	
 
