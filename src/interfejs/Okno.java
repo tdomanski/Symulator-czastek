@@ -15,13 +15,13 @@ public class Okno extends JFrame {
 		this.setLayout(new BorderLayout());
 		menuGorne = new MenuGorne();
 		menuBoczne = new MenuBoczne();
-		obszarSymulacji = new ObszarSymulacji();
+		obszarSymulacji = new ObszarSymulacji(16,8); //(szerokosc,dlugosc)
 		this.add(menuGorne,BorderLayout.PAGE_START);
 		this.add(menuBoczne,BorderLayout.LINE_END);
 		this.add(obszarSymulacji,BorderLayout.LINE_START);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setVisible(true);
-		this.setSize(600,600);
+		this.setSize(800,800);
 		this.setTitle("Program");
 	}
 	
