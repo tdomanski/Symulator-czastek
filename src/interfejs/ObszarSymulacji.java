@@ -1,12 +1,20 @@
 package interfejs;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class ObszarSymulacji extends JPanel {
+public class ObszarSymulacji extends JPanel implements MouseListener{
 	private int dlugoscX;
 	private int szerokoscY;
 	private int sizeX, sizeY;
@@ -15,9 +23,9 @@ public class ObszarSymulacji extends JPanel {
 	{
 		this.dlugoscX=dlugoscX;
 		this.szerokoscY=szerokoscY;
-		System.out.println(this.getSize());
 		this.setLayout(new GridLayout(szerokoscY,dlugoscX));
-		kwadratySymulacji = new JPanel[szerokoscY][dlugoscX];
+//		this.setLayout(new GridBagLayout());
+		kwadratySymulacji = new JPanel[dlugoscX][szerokoscY];
 		for(int i=0;i<szerokoscY;i++) // i - wiersze, j - kolumny
 		{
 			for(int j=0;j<dlugoscX;j++)
@@ -25,14 +33,24 @@ public class ObszarSymulacji extends JPanel {
 				kwadratySymulacji[i][j]= new JPanel();
 				kwadratySymulacji[i][j].setBorder(BorderFactory.createLineBorder(Color.black));
 				kwadratySymulacji[i][j].setBackground(new Color(50,50,50));
-				JLabel label = new JLabel(i+","+j);
-				label.setForeground(Color.WHITE);
+				JLabel label= new JLabel(); //= new JLabel(i+","+j);
+				//label.setForeground(Color.WHITE);
+				int x=i;
+				int y=j;
+				kwadratySymulacji[x][y].addMouseListener(new MouseAdapter() {
+			        public void mouseClicked(MouseEvent e) {
+			        	kwadratySymulacji[x][y].setBackground(Color.BLUE);
+			        	label.setForeground(Color.BLACK);
+			        }
+			    });
 				kwadratySymulacji[i][j].add(label);
 				this.add(kwadratySymulacji[i][j]);
 			}
-		}
-		
+		}		
 	}
+//	public void actionPerformed(ActionEvent e) {
+//		
+//	}
 // Pomocniczo: do wykorzystania w pozniejszym czasie
 //	private class Draw extends JComponent{
 //
@@ -45,5 +63,26 @@ public class ObszarSymulacji extends JPanel {
 //            graph2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 //			// polecenia rysowania: graph2.setColor, graph2.draw ....
 //        }
-//    }
+////    }
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 }
