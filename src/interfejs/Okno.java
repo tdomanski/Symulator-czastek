@@ -18,11 +18,11 @@ public class Okno extends JFrame {
 		obszarSymulacji = new ObszarSymulacji(16,8); //(szerokosc,dlugosc)
 		this.add(menuGorne,BorderLayout.PAGE_START);
 		this.add(menuBoczne,BorderLayout.LINE_END);
-		this.add(obszarSymulacji,BorderLayout.LINE_START);
+		this.add(obszarSymulacji,BorderLayout.CENTER);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setVisible(true);
 		this.setSize(800,800);
-		this.setTitle("Program");
+		this.setTitle("Symulator cz¹stek w polu elektrycznym");
 	}
 	
 
