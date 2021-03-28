@@ -24,7 +24,6 @@ public class ObszarSymulacji extends JPanel implements MouseListener{
 		this.dlugoscX=dlugoscX;
 		this.szerokoscY=szerokoscY;
 		this.setLayout(new GridLayout(szerokoscY,dlugoscX));
-//		this.setLayout(new GridBagLayout());
 		kwadratySymulacji = new JPanel[dlugoscX][szerokoscY];
 		for(int i=0;i<szerokoscY;i++) // i - wiersze, j - kolumny
 		{
