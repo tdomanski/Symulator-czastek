@@ -2,6 +2,7 @@ package interfejs;
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -18,14 +19,26 @@ public class MenuGorne extends JPanel {
 		
 		uruchomButton = new JButton("Uruchom");
 		uruchomButton.setToolTipText("Uruchom symulacjê");
+		ActionListener uruchomButtonListener = event -> {
+			System.out.println("Go");
+		};
+		uruchomButton.addActionListener(uruchomButtonListener);
 		this.add(uruchomButton);
 		
 		zatrzymajButton = new JButton("Zatrzymaj");
 		zatrzymajButton.setToolTipText("Zatrzymaj symulacjê");
+		ActionListener zatrzymajButtonListener = event -> {
+			System.out.println("Halt!");
+		};
+		zatrzymajButton.addActionListener(zatrzymajButtonListener);
 		this.add(zatrzymajButton);
 		
 		poleTrajektorieButton = new JButton("Pole / Trajektorie cz¹stek");
 		poleTrajektorieButton.setToolTipText("Prze³¹cz pomiêdzy widokiem pola wektorowego i widokiem trajektorii zakreœlanych przez cz¹stki");
+		ActionListener poleTrajektorieButtonListener = event -> {
+			System.out.println("Oke");
+		};
+		poleTrajektorieButton.addActionListener(poleTrajektorieButtonListener);
 		this.add(poleTrajektorieButton);
 		
 	}
