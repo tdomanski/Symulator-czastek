@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -19,8 +21,15 @@ public class ObszarSymulacji extends JPanel implements MouseListener{
 	private int szerokoscY;
 	private int sizeX, sizeY;
 	private JPanel[][] kwadratySymulacji;
+	
+	List<CzastkaStacjonarna> czastkiStacjonarne = new ArrayList<CzastkaStacjonarna>();
+	List<CzastkaProbna> czastkiProbne = new ArrayList<CzastkaProbna>();
+
+	String aktualnyContent;//informacja, czy aktualnie wyœwietlane jest pole wektorowe, czy trajektorie cz¹stek
+	
 	public ObszarSymulacji(int dlugoscX, int szerokoscY) 
 	{
+		aktualnyContent = "Pole";//Domyœlnie ustawiamy pokazywanie pola wektorowego
 		this.dlugoscX=dlugoscX;
 		this.szerokoscY=szerokoscY;
 		this.setLayout(new GridLayout(szerokoscY,dlugoscX));
@@ -83,5 +92,25 @@ public class ObszarSymulacji extends JPanel implements MouseListener{
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void przelaczPoleTrajektorie() {
+		if (aktualnyContent == "Pole") {
+			aktualnyContent = "Trajektorie";
+			//System.out.println("Teraz trajektorie");
+		}
+		
+		else if (aktualnyContent == "Trajektorie") {
+			aktualnyContent = "Pole";
+			//System.out.println("Teraz pole");
+		}
+	}
+	
+	public void dodajCzastkeStacjonarna(CzastkaStacjonarna cs) {
+		czastkiStacjonarne.add(cs);
+	}
+	
+	public void dodajCzastkeProbna(CzastkaProbna cp) {
+		czastkiProbne.add(cp);
 	}
 }

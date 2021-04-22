@@ -13,14 +13,15 @@ public class MenuGorne extends JPanel {
 	JButton zatrzymajButton;
 	JButton poleTrajektorieButton;
 	
-	public MenuGorne() 
-	{
+	ObszarSymulacji obszarSymulacji;//Obszar symulacji, za który odpowiedzialne jest to menu
+	
+	public MenuGorne() {//KONSTRUKTOR
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
 		
 		uruchomButton = new JButton("Uruchom");
 		uruchomButton.setToolTipText("Uruchom symulacjê");
 		ActionListener uruchomButtonListener = event -> {
-			System.out.println("Go");
+			this.uruchomSymulacje();
 		};
 		uruchomButton.addActionListener(uruchomButtonListener);
 		this.add(uruchomButton);
@@ -28,7 +29,7 @@ public class MenuGorne extends JPanel {
 		zatrzymajButton = new JButton("Zatrzymaj");
 		zatrzymajButton.setToolTipText("Zatrzymaj symulacjê");
 		ActionListener zatrzymajButtonListener = event -> {
-			System.out.println("Halt!");
+			this.zatrzymajSymulacje();
 		};
 		zatrzymajButton.addActionListener(zatrzymajButtonListener);
 		this.add(zatrzymajButton);
@@ -36,10 +37,22 @@ public class MenuGorne extends JPanel {
 		poleTrajektorieButton = new JButton("Pole / Trajektorie cz¹stek");
 		poleTrajektorieButton.setToolTipText("Prze³¹cz pomiêdzy widokiem pola wektorowego i widokiem trajektorii zakreœlanych przez cz¹stki");
 		ActionListener poleTrajektorieButtonListener = event -> {
-			System.out.println("Oke");
+			obszarSymulacji.przelaczPoleTrajektorie();
 		};
 		poleTrajektorieButton.addActionListener(poleTrajektorieButtonListener);
 		this.add(poleTrajektorieButton);
 		
+	}//KONIEC KONSTRUKTORA
+	
+	public void uruchomSymulacje() {
+		
+	}
+	
+	public void zatrzymajSymulacje() {
+		
+	}
+	
+	public void ustawObszarSymulacji (ObszarSymulacji os) {
+		this.obszarSymulacji = os;
 	}
 }

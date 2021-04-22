@@ -1,13 +1,20 @@
 package interfejs;
 
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileSystemView;
 
 public class MenuBoczne extends JPanel {
 	
@@ -30,87 +37,163 @@ public class MenuBoczne extends JPanel {
 	JButton eksportujCzastkiButton;
 	JButton eksportujObrazButton;
 	
-	public MenuBoczne() 
-	{
+	ObszarSymulacji obszarSymulacji;//Obszar symulacji, za który odpowiedzialne jest to menu
+	
+	public MenuBoczne() {//KONSTRUKTOR
 		this.setLayout(new GridLayout(5,1));
-		
 		top = new JPanel(new GridLayout(5,1));
+		
+		
+		
 		
 		czastkaStacjonarnaButton = new JButton("Nowa cz¹stka stacjonarna");
 		ActionListener czastkaStacjonarnaButtonListener = event -> {
-			czastkaStacjonarnaSelected = true;
-			czastkaProbnaSelected = false;
-			parametryNowejCzastkiLabel.setText("<html>Parametry nowej cz¹stki<br/> stacjonarnej<html>");
-			masaField.setEditable(false);
-			ladunekField.setEditable(true);
+			this.ustawWyborNowaCzastkaStacjonarna();
 		};
 		czastkaStacjonarnaButton.addActionListener(czastkaStacjonarnaButtonListener);
 		top.add(czastkaStacjonarnaButton);
 		
+		
 		czastkaProbnaButton = new JButton("Nowa cz¹stka próbna");
 		ActionListener czastkaProbnaButtonListener = event -> {
-			czastkaProbnaSelected = true;
-			czastkaStacjonarnaSelected = false;
-			parametryNowejCzastkiLabel.setText("<html>Parametry nowej cz¹stki<br/> próbnej<html>");
-			masaField.setEditable(true);
-			ladunekField.setEditable(true);
+			this.ustawWyborNowaCzastkaProbna();
 		};
 		czastkaProbnaButton.addActionListener(czastkaProbnaButtonListener);
 		top.add(czastkaProbnaButton);
+		
+		
+		
 		
 		parametryNowejCzastkiLabel = new JLabel("Parametry nowej cz¹stki");
 		parametryNowejCzastkiLabel.setPreferredSize(getPreferredSize());
 		top.add(parametryNowejCzastkiLabel);
 		
-		masaField = new JTextField("masa");
-		masaField.setEditable(false);
-		top.add(masaField);
 		
-		ladunekField = new JTextField("³adunek");
+		
+		
+		masaField = new JTextField();
+		masaField.setEditable(false);
+		TextPrompt masaInitialText = new TextPrompt("masa", masaField);
+		masaInitialText.changeAlpha(128);
+		top.add(masaField);
+		ladunekField = new JTextField();
 		ladunekField.setEditable(false);
+		TextPrompt ladunekInitialText = new TextPrompt("³adunek", ladunekField);
+		ladunekInitialText.changeAlpha(128);
 		top.add(ladunekField);
 		
+		
 		this.add(top);
+		
 		
 		spacing1 = new JPanel();
 		dodajCzastkeButton = new JButton("Dodaj cz¹stkê");
 		ActionListener dodajCzastkeButtonListener = event -> {
-			System.out.println("Przycisk 'Dodaj cz¹stkê' zosta³ klikniêty'");
+			this.dodajCzastke();
 		};
 		dodajCzastkeButton.addActionListener(dodajCzastkeButtonListener);
 		spacing1.add(dodajCzastkeButton);
 		this.add(spacing1);
 		
+		
 		center = new JPanel (new GridLayout(6,1));
+		
 		
 		importujCzastkiButton = new JButton("Importuj cz¹stki");
 		ActionListener importujCzastkiButtonListener = event -> {
-			System.out.println("Przycisk 'Importuj cz¹stki' zosta³ klikniêty");
+			this.importujCzastki();
 		};
 		importujCzastkiButton.addActionListener(importujCzastkiButtonListener);
 		center.add(importujCzastkiButton);
 		
 		eksportujCzastkiButton = new JButton("Eksportuj cz¹stki");
 		ActionListener eksportujCzastkiButtonListener = event -> {
-			System.out.println("Przycisk 'Eksportuj cz¹stki' zosta³ klikniêty");
+			this.eksportujCzastki();
 		};
 		eksportujCzastkiButton.addActionListener(eksportujCzastkiButtonListener);
 		center.add(eksportujCzastkiButton);
 		
+		
 		this.add(center);
+		
+		
+		
 		
 		spacing2 = new JPanel();
 		this.add(spacing2);
 		
+		
+		
+		
 		bottom = new JPanel(new GridLayout(6,1));
+		
 		
 		eksportujObrazButton = new JButton("Eksportuj Obraz");
 		ActionListener eksportujObrazButtonListener = event -> {
-			System.out.println("Jeszcze nie jest zbyt piêkny, ale w porz¹dku.");
+			this.eksportujObraz();
 		};
 		eksportujObrazButton.addActionListener(eksportujObrazButtonListener);
 		bottom.add(eksportujObrazButton);
 		
 		this.add(bottom);
+	}//KONIEC KONSTRUKTORA
+	
+	public void ustawWyborNowaCzastkaStacjonarna() {
+		czastkaStacjonarnaSelected = true;
+		czastkaProbnaSelected = false;
+		parametryNowejCzastkiLabel.setText("<html>Parametry nowej cz¹stki<br/> stacjonarnej<html>");
+		masaField.setEditable(false);
+		ladunekField.setEditable(true);
+	}
+	
+	public void ustawWyborNowaCzastkaProbna() {
+		czastkaProbnaSelected = true;
+		czastkaStacjonarnaSelected = false;
+		parametryNowejCzastkiLabel.setText("<html>Parametry nowej cz¹stki<br/> próbnej<html>");
+		masaField.setEditable(true);
+		ladunekField.setEditable(true);
+	}
+	
+	public void dodajCzastke() {
+		if (czastkaStacjonarnaSelected == true) {
+			CzastkaStacjonarna cs = new CzastkaStacjonarna(obszarSymulacji.getWidth()/2, obszarSymulacji.getHeight()/2, Double.valueOf(ladunekField.getText()));
+			obszarSymulacji.dodajCzastkeStacjonarna(cs);
+		}
+		
+		else if (czastkaProbnaSelected == true) {
+			CzastkaProbna cp = new CzastkaProbna(obszarSymulacji.getWidth()/2, obszarSymulacji.getHeight()/2,
+												 Double.valueOf(masaField.getText()), Double.valueOf(ladunekField.getText()), 0, 0);
+			obszarSymulacji.dodajCzastkeProbna(cp);
+		}
+	}
+	
+	public void importujCzastki() {
+		
+	}
+	
+	public void eksportujCzastki() {
+		
+	}
+	
+	public void eksportujObraz() {
+		BufferedImage image = new BufferedImage(obszarSymulacji.getWidth(), obszarSymulacji.getHeight(),BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2D = image.createGraphics();
+		obszarSymulacji.paintAll(g2D);
+		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+		File selectedFile = null;
+		int returnValue = jfc.showSaveDialog(null);
+		if (returnValue == JFileChooser.APPROVE_OPTION) {
+            selectedFile = jfc.getSelectedFile();
+            System.out.println(selectedFile.getAbsolutePath());
+        }
+		try {
+			ImageIO.write(image, "png", selectedFile);
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	public void ustawObszarSymulacji(ObszarSymulacji os) {
+		this.obszarSymulacji = os;
 	}
 }
