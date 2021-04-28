@@ -36,7 +36,7 @@ public class MenuBoczne extends JPanel {
 	JButton importujCzastkiButton;
 	JButton eksportujCzastkiButton;
 	JButton eksportujObrazButton;
-	
+	int id=0; //Numer czastki
 	ObszarSymulacji obszarSymulacji;//Obszar symulacji, za który odpowiedzialne jest to menu
 	
 	public MenuBoczne() {//KONSTRUKTOR
@@ -170,8 +170,9 @@ public class MenuBoczne extends JPanel {
 		
 		else if (czastkaProbnaSelected == true) {
 			CzastkaProbna cp = new CzastkaProbna(obszarSymulacji.getWidth()/2, obszarSymulacji.getHeight()/2,
-												 Double.valueOf(masaField.getText()), Double.valueOf(ladunekField.getText()), 0, 0);
+												 Double.valueOf(masaField.getText()), Double.valueOf(ladunekField.getText()), 0, 0,id);
 			obszarSymulacji.dodajCzastkeProbna(cp);
+			id++;
 		}
 	}
 	
