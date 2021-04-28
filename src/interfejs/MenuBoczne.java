@@ -40,8 +40,14 @@ public class MenuBoczne extends JPanel {
 	ObszarSymulacji obszarSymulacji;//Obszar symulacji, za który odpowiedzialne jest to menu
 	
 	public MenuBoczne() {//KONSTRUKTOR
-		this.setLayout(new GridLayout(5,1));
-		top = new JPanel(new GridLayout(5,1));
+		GridLayout layout1 = new GridLayout(5,1);
+		layout1.setHgap(2);
+		layout1.setVgap(2);
+		GridLayout layout2 = new GridLayout(5,1);
+		layout2.setHgap(1);
+		layout2.setVgap(1);
+		this.setLayout(layout1);
+		top = new JPanel(layout2);
 		
 		
 		
@@ -95,8 +101,10 @@ public class MenuBoczne extends JPanel {
 		spacing1.add(dodajCzastkeButton);
 		this.add(spacing1);
 		
-		
-		center = new JPanel (new GridLayout(6,1));
+		GridLayout layout3 = new GridLayout(6,1);
+		layout3.setHgap(1);
+		layout3.setVgap(1);
+		center = new JPanel (layout3);
 		
 		
 		importujCzastkiButton = new JButton("Importuj cz¹stki");

@@ -10,12 +10,16 @@ public class Okno extends JFrame {
 	MenuGorne menuGorne;
 	ObszarSymulacji obszarSymulacji;
 	MenuBoczne menuBoczne;
+	BorderLayout layout;
 	public Okno()
 	{
-		this.setLayout(new BorderLayout());
+		layout = new BorderLayout();
+		layout.setHgap(4);
+		layout.setVgap(4);
+		this.setLayout(layout);
 		menuGorne = new MenuGorne();
 		menuBoczne = new MenuBoczne();
-		obszarSymulacji = new ObszarSymulacji(70,70); //(dlugosc,szerokosc)
+		obszarSymulacji = new ObszarSymulacji(); //(dlugosc,szerokosc)
 		menuBoczne.ustawObszarSymulacji(obszarSymulacji);
 		menuGorne.ustawObszarSymulacji(obszarSymulacji);
 		this.add(menuGorne,BorderLayout.PAGE_START);
