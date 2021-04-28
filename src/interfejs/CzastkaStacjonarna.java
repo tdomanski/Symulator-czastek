@@ -35,6 +35,4 @@ public class CzastkaStacjonarna {
 	public void setLadunek(double ladunek) {
 		this.ladunek = ladunek;
 	}
-	
-
 }

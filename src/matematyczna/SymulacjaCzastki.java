@@ -10,14 +10,14 @@ public class SymulacjaCzastki {
 	Obliczenia oblicz;
 	int id=-1;
 	
-	double dVx;
-	double dVy;
+	double dVx=0;
+	double dVy=0;
 	
 	public SymulacjaCzastki(CzastkaProbna cz) {
 		id=cz.getId();
 	}
 	
-	public void Symulacja(Czastki czastki)
+	public void Symulacja(Czastki czastki, double dt)
 	{
 		double sumaEx=0;
 		double sumaEy=0;
@@ -34,14 +34,17 @@ public class SymulacjaCzastki {
 				sumaEx+=oblicz.czastkaEx(czastki.getCzastkeStacjonarna(i).getX(), czastki.getCzastkeStacjonarna(i).getY(),czastki.getCzastkeStacjonarna(i).getX() ,czastki.getCzastkeStacjonarna(id).getX(), czastki.getCzastkeStacjonarna(id).getY());
 				sumaEy+=oblicz.czastkaEx(czastki.getCzastkeStacjonarna(i).getX(), czastki.getCzastkeStacjonarna(i).getY(),czastki.getCzastkeStacjonarna(i).getX() ,czastki.getCzastkeStacjonarna(id).getX(), czastki.getCzastkeStacjonarna(id).getY());
 		}
-		
+		double masa = czastki.getCzastkeProbna(id).getMasa();
+		double q = czastki.getCzastkeProbna(id).getLadunek();
+		dVx=q/masa*sumaEx*dt;
+		dVy=q/masa*sumaEy*dt;
 	}
-	//i - numer czastki od 0, probneE - kolekcja natezen probnych czastek, stacjonarneE - kolekcja natezen stacjonarnych czastek
-	//Natezenie dzialajace na dana czastke
-//	public double (int i,List<Double> probneE,List<Double> stacjonarneE)
-//	{
-//		double ret=0;
-//		
-//	}
 
+	public double getdVx() {
+		return dVx;
+	}
+
+	public double getdVy() {
+		return dVy;
+	}
 }
