@@ -16,6 +16,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileSystemView;
 
+import czastki.parametry.CzastkaProbna;
+import czastki.parametry.CzastkaStacjonarna;
+
 public class MenuBoczne extends JPanel {
 	
 	private boolean czastkaStacjonarnaSelected;

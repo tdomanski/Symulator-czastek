@@ -18,6 +18,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
+import czastki.parametry.CzastkaProbna;
+import czastki.parametry.CzastkaStacjonarna;
+
 public class ObszarSymulacji extends JPanel implements MouseListener{
 	
 	private List<CzastkaStacjonarna> czastkiStacjonarne = new ArrayList<CzastkaStacjonarna>();

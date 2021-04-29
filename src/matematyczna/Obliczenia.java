@@ -3,8 +3,8 @@ package matematyczna;
 import java.util.ArrayList;
 import java.util.List;
 
-import interfejs.CzastkaStacjonarna;
-import interfejs.Czastki;
+import czastki.parametry.CzastkaStacjonarna;
+import czastki.parametry.Czastki;
 
 public class Obliczenia {
 	private static double PI = 3.14159265;

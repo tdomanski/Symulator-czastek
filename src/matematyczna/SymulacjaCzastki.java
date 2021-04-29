@@ -3,9 +3,8 @@ package matematyczna;
 import java.util.ArrayList;
 import java.util.List;
 
-import interfejs.CzastkaProbna;
-import interfejs.Czastki;
-//Symulacja cz¹stki jest klas¹, która bêdzie u¿ywana oddzielnie dla ka¿dej z cz¹stek
+import czastki.parametry.CzastkaProbna;
+import czastki.parametry.Czastki;
 
 public class SymulacjaCzastki {
 	private Obliczenia oblicz;
