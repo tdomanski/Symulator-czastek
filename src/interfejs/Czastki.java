@@ -6,8 +6,8 @@ import java.util.List;
 public class Czastki {
 	private List<CzastkaProbna> czastkiProbne;
 	private List<CzastkaStacjonarna> czastkiStacjonarne;
-	int iloscCzProbnych=0;
-	int iloscCzStacjon=0;
+	private int iloscCzProbnych=0;
+	private int iloscCzStacjon=0;
 	public Czastki() {
 		czastkiProbne = new ArrayList<CzastkaProbna>();
 		czastkiStacjonarne = new ArrayList<CzastkaStacjonarna>();

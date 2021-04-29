@@ -20,10 +20,10 @@ import javax.swing.border.LineBorder;
 
 public class ObszarSymulacji extends JPanel implements MouseListener{
 	
-	List<CzastkaStacjonarna> czastkiStacjonarne = new ArrayList<CzastkaStacjonarna>();
-	List<CzastkaProbna> czastkiProbne = new ArrayList<CzastkaProbna>();
+	private List<CzastkaStacjonarna> czastkiStacjonarne = new ArrayList<CzastkaStacjonarna>();
+	private List<CzastkaProbna> czastkiProbne = new ArrayList<CzastkaProbna>();
 
-	String aktualnyContent;//informacja, czy aktualnie wyœwietlane jest pole wektorowe, czy trajektorie cz¹stek
+	private String aktualnyContent;//informacja, czy aktualnie wyœwietlane jest pole wektorowe, czy trajektorie cz¹stek
 	
 	public ObszarSymulacji() 
 	{

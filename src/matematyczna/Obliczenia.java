@@ -7,8 +7,8 @@ import interfejs.CzastkaStacjonarna;
 import interfejs.Czastki;
 
 public class Obliczenia {
-	static double PI = 3.14159265;
-	static double epsilon0 = 8.85417E-12; //przenikalnosc elektryczna prozni
+	private static double PI = 3.14159265;
+	private static double epsilon0 = 8.85417E-12; //przenikalnosc elektryczna prozni
 //	public Obliczenia() {
 //		
 //	}

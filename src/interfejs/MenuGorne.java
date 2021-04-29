@@ -9,11 +9,11 @@ import javax.swing.JPanel;
 
 public class MenuGorne extends JPanel {
 	
-	JButton uruchomButton;
-	JButton zatrzymajButton;
-	JButton poleTrajektorieButton;
+	private JButton uruchomButton;
+	private JButton zatrzymajButton;
+	private JButton poleTrajektorieButton;
 	
-	ObszarSymulacji obszarSymulacji;//Obszar symulacji, za który odpowiedzialne jest to menu
+	private ObszarSymulacji obszarSymulacji;//Obszar symulacji, za który odpowiedzialne jest to menu
 	
 	public MenuGorne() {//KONSTRUKTOR
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));

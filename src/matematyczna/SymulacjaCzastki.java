@@ -5,13 +5,14 @@ import java.util.List;
 
 import interfejs.CzastkaProbna;
 import interfejs.Czastki;
+//Symulacja cz¹stki jest klas¹, która bêdzie u¿ywana oddzielnie dla ka¿dej z cz¹stek
 
 public class SymulacjaCzastki {
-	Obliczenia oblicz;
-	int id=-1;
+	private Obliczenia oblicz;
+	private int id=-1;
 	
-	double dVx=0;
-	double dVy=0;
+	private double dVx=0;
+	private double dVy=0;
 	
 	public SymulacjaCzastki(CzastkaProbna cz) {
 		id=cz.getId();
@@ -46,5 +47,13 @@ public class SymulacjaCzastki {
 
 	public double getdVy() {
 		return dVy;
+	}
+	public double newVx(CzastkaProbna cz)
+	{
+		return dVx+cz.getVx();
+	}
+	public double newVy(CzastkaProbna cz)
+	{
+		return dVy+cz.getVy();
 	}
 }

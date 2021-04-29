@@ -2,9 +2,9 @@ package interfejs;
 
 public class CzastkaStacjonarna {
 	
-	int x;
-	int y;
-	double ladunek;
+	private int x;
+	private int y;
+	private double ladunek;
 	
 	public CzastkaStacjonarna(int x, int y, double q) {
 		this.x = x;

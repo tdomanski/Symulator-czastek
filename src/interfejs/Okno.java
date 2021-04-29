@@ -7,10 +7,10 @@ import java.awt.HeadlessException;
 import javax.swing.JFrame;
 
 public class Okno extends JFrame {
-	MenuGorne menuGorne;
-	ObszarSymulacji obszarSymulacji;
-	MenuBoczne menuBoczne;
-	BorderLayout layout;
+	private MenuGorne menuGorne;
+	private ObszarSymulacji obszarSymulacji;
+	private MenuBoczne menuBoczne;
+	private BorderLayout layout;
 	public Okno()
 	{
 		layout = new BorderLayout();

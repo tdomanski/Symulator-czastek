@@ -18,26 +18,26 @@ import javax.swing.filechooser.FileSystemView;
 
 public class MenuBoczne extends JPanel {
 	
-	boolean czastkaStacjonarnaSelected;
-	boolean czastkaProbnaSelected;
+	private boolean czastkaStacjonarnaSelected;
+	private boolean czastkaProbnaSelected;
 	
-	JPanel top;
-	JPanel spacing1;
-	JPanel center;
-	JPanel spacing2;
-	JPanel bottom;
+	private JPanel top;
+	private JPanel spacing1;
+	private JPanel center;
+	private JPanel spacing2;
+	private JPanel bottom;
 	
-	JButton czastkaStacjonarnaButton;
-	JButton czastkaProbnaButton;
-	JLabel parametryNowejCzastkiLabel;
-	JTextField masaField;
-	JTextField ladunekField;
-	JButton dodajCzastkeButton;
-	JButton importujCzastkiButton;
-	JButton eksportujCzastkiButton;
-	JButton eksportujObrazButton;
-	int id=0; //Numer czastki
-	ObszarSymulacji obszarSymulacji;//Obszar symulacji, za który odpowiedzialne jest to menu
+	private JButton czastkaStacjonarnaButton;
+	private JButton czastkaProbnaButton;
+	private JLabel parametryNowejCzastkiLabel;
+	private JTextField masaField;
+	private JTextField ladunekField;
+	private JButton dodajCzastkeButton;
+	private JButton importujCzastkiButton;
+	private JButton eksportujCzastkiButton;
+	private JButton eksportujObrazButton;
+	private int id=0; //Numer czastki
+	private ObszarSymulacji obszarSymulacji;//Obszar symulacji, za który odpowiedzialne jest to menu
 	
 	public MenuBoczne() {//KONSTRUKTOR
 		GridLayout layout1 = new GridLayout(5,1);
