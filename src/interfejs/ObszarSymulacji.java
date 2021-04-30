@@ -3,6 +3,7 @@ package interfejs;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -10,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,15 +26,23 @@ import javax.swing.border.LineBorder;
 import czastki.parametry.CzastkaProbna;
 import czastki.parametry.CzastkaStacjonarna;
 
-public class ObszarSymulacji extends JPanel implements MouseListener{
+public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotionListener {
 	
 	private List<CzastkaStacjonarna> czastkiStacjonarne = new ArrayList<CzastkaStacjonarna>();
 	private List<CzastkaProbna> czastkiProbne = new ArrayList<CzastkaProbna>();
-	private String aktualnyContent;//informacja, czy aktualnie wyœwietlane jest pole wektorowe, czy trajektorie cz¹stek
+	private int draggableCzastkaIndex;
+	private String draggedCzastka;
+
+	private String aktualnyContent;//informacja, czy aktualnie wyï¿½wietlane jest pole wektorowe, czy trajektorie czï¿½stek
 	
 	public ObszarSymulacji() 
 	{
 		this.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(10, 10, 10, 10),  new EtchedBorder(Color.black,Color.black)));
+		aktualnyContent = "Pole";//Domyï¿½lnie ustawiamy pokazywanie pola wektorowego
+		draggedCzastka = null;
+		this.setBorder(new LineBorder(Color.black, 2,true));
+		this.addMouseListener(this);
+		this.addMouseMotionListener(this);
 	}
 //	public void actionPerformed(ActionEvent e) {
 //		
@@ -50,12 +60,25 @@ public class ObszarSymulacji extends JPanel implements MouseListener{
 //			// polecenia rysowania: graph2.setColor, graph2.draw ....
 //        }
 ////    }
+	
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+
+		for (CzastkaStacjonarna cs : czastkiStacjonarne) {
+			cs.paint(g, this.getHeight()/25, this.getHeight()/25);
+		}
+		
+		for (CzastkaProbna cp : czastkiProbne) {
+			cp.paint(g, this.getHeight()/45, this.getHeight()/45);
+		}
+	}
+	
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
+	
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
+		draggedCzastka = null;
 		
 	}
 	public void mouseEntered(MouseEvent e) {
@@ -69,6 +92,43 @@ public class ObszarSymulacji extends JPanel implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
+	}
+	
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		for (CzastkaProbna cp : czastkiProbne) {
+			if (e.getX() - cp.getX() < this.getHeight()/50 && e.getX() - cp.getX() > -this.getHeight()/50 && 
+				e.getY() - cp.getY() < this.getHeight()/50 && e.getY() - cp.getY() > -this.getHeight()/50) {
+					draggableCzastkaIndex = czastkiProbne.indexOf(cp);
+					draggedCzastka = "probna";
+					break;
+			}
+		}
+		
+		for (CzastkaStacjonarna cs : czastkiStacjonarne) {
+			if (e.getX() - cs.getX() < this.getHeight()/50 && e.getX() - cs.getX() > -this.getHeight()/50 && 
+				e.getY() - cs.getY() < this.getHeight()/50 && e.getY() - cs.getY() > -this.getHeight()/50) {
+					draggableCzastkaIndex = czastkiStacjonarne.indexOf(cs);
+					draggedCzastka = "stacjonarna";
+					break;
+			}
+		}
+		
+		if (draggedCzastka == "probna") {
+			czastkiProbne.get(draggableCzastkaIndex).setX(e.getX());
+			czastkiProbne.get(draggableCzastkaIndex).setY(e.getY());
+			repaint();
+		}
+		
+		else if (draggedCzastka == "stacjonarna") {
+			czastkiStacjonarne.get(draggableCzastkaIndex).setX(e.getX());
+			czastkiStacjonarne.get(draggableCzastkaIndex).setY(e.getY());
+			repaint();
+		}
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
 		
 	}
 	
@@ -86,9 +146,11 @@ public class ObszarSymulacji extends JPanel implements MouseListener{
 	
 	public void dodajCzastkeStacjonarna(CzastkaStacjonarna cs) {
 		czastkiStacjonarne.add(cs);
+		repaint();
 	}
 	
 	public void dodajCzastkeProbna(CzastkaProbna cp) {
 		czastkiProbne.add(cp);
+		repaint();
 	}
 }

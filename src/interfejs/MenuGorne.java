@@ -36,10 +36,7 @@ public class MenuGorne extends JPanel {
 		
 		poleTrajektorieButton = new JButton("Pole / Trajektorie cz¹stek");
 		poleTrajektorieButton.setToolTipText("Prze³¹cz pomiêdzy widokiem pola wektorowego i widokiem trajektorii zakreœlanych przez cz¹stki");
-		ActionListener poleTrajektorieButtonListener = event -> {
-			obszarSymulacji.przelaczPoleTrajektorie();
-		};
-		poleTrajektorieButton.addActionListener(poleTrajektorieButtonListener);
+		poleTrajektorieButton.addActionListener(event -> obszarSymulacji.przelaczPoleTrajektorie());
 		this.add(poleTrajektorieButton);
 		
 	}//KONIEC KONSTRUKTORA
