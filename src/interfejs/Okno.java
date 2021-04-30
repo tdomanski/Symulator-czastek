@@ -32,4 +32,8 @@ public class Okno extends JFrame {
 		this.setTitle("Symulator cz¹stek w polu elektrycznym");
 	}
 	
+	public static void main(String[] args) {
+		Okno okno = new Okno();
+	}
+	
 }
