@@ -37,20 +37,14 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 	private List<CzastkaProbna> czastkiProbne = new ArrayList<CzastkaProbna>();
 	private int draggableCzastkaIndex;
 	private String draggedCzastka;
-<<<<<<< Upstream, based on branch 'main' of https://github.com/tdomanski/PO_Java_Projekt
+
 	private List<SymulacjaCzastki> symulacje = new ArrayList<SymulacjaCzastki>();
 	private Czastki cz;
 	private String aktualnyContent;//informacja, czy aktualnie wyœwietlane jest pole wektorowe, czy trajektorie cz¹stek
 	private ExecutorService exec;
-	public ObszarSymulacji() 
-	{
-=======
 	private int czastkaStacjonarnaRadius, czastkaProbnaRadius;
-
-	private String aktualnyContent;//informacja, czy aktualnie wyswietlane jest pole wektorowe, czy trajektorie czastek
 	
 	public ObszarSymulacji() {
->>>>>>> c8cd4bc CzÄ…stki nie wychodzÄ… poza granice, lepsze zapisywanie obrazka do pliku
 		this.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(10, 10, 10, 10),  new EtchedBorder(Color.black,Color.black)));
 		aktualnyContent = "Pole";//Domyslnie ustawiamy pokazywanie pola wektorowego
 		draggedCzastka = null;
