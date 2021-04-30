@@ -38,9 +38,8 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 	public ObszarSymulacji() 
 	{
 		this.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(10, 10, 10, 10),  new EtchedBorder(Color.black,Color.black)));
-		aktualnyContent = "Pole";//Domyï¿½lnie ustawiamy pokazywanie pola wektorowego
+		aktualnyContent = "Pole";//Domyœlnie ustawiamy pokazywanie pola wektorowego
 		draggedCzastka = null;
-		this.setBorder(new LineBorder(Color.black, 2,true));
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
 	}
