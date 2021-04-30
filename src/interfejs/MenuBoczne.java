@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
 import czastki.parametry.CzastkaProbna;
@@ -156,11 +157,14 @@ public class MenuBoczne extends JPanel {
 	}
 	
 	public void dodajCzastke() {
-		Random r = new Random();
+		obszarSymulacji.setCzastkaStacjonarnaRadius(obszarSymulacji.getHeight()/50);
+		obszarSymulacji.setCzastkaProbnaRadius(obszarSymulacji.getHeight()/100);
+		int randomX = 2 *obszarSymulacji.getCzastkaStacjonarnaRadius() + (int)(Math.random() * (obszarSymulacji.getWidth() - 4 * obszarSymulacji.getCzastkaStacjonarnaRadius()));
+		int randomY = 2 *obszarSymulacji.getCzastkaStacjonarnaRadius() + (int)(Math.random() * (obszarSymulacji.getHeight() - 4 * obszarSymulacji.getCzastkaStacjonarnaRadius()));
 		if (czastkaStacjonarnaSelected == true) {
 			if (ladunekField.getText().isBlank() == false) {
 				try {
-					CzastkaStacjonarna cs = new CzastkaStacjonarna(r.nextInt(obszarSymulacji.getWidth()), r.nextInt(obszarSymulacji.getHeight()), Double.valueOf(ladunekField.getText()));
+					CzastkaStacjonarna cs = new CzastkaStacjonarna(randomX, randomY, Double.valueOf(ladunekField.getText()));
 					obszarSymulacji.dodajCzastkeStacjonarna(cs);
 				} catch (IllegalArgumentException e) {
 					JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz ³adunek w postaci liczby rzeczywistej");
@@ -169,16 +173,17 @@ public class MenuBoczne extends JPanel {
 		}
 		
 		else if (czastkaProbnaSelected == true) {
-			if (masaField.getText().isBlank() == false && ladunekField.getText().isBlank() == false) {
+			if (masaField.getText().isBlank() == false && ladunekField.getText().isBlank() == false && Double.valueOf(masaField.getText()) > 0) {
 				try {
-					CzastkaProbna cp = new CzastkaProbna(r.nextInt(obszarSymulacji.getWidth()), r.nextInt(obszarSymulacji.getHeight()),
-							 Double.valueOf(masaField.getText()), Double.valueOf(ladunekField.getText()), 0, 0, id);
+					CzastkaProbna cp = new CzastkaProbna(randomX, randomY,Double.valueOf(masaField.getText()), Double.valueOf(ladunekField.getText()), 0, 0, id);
 					obszarSymulacji.dodajCzastkeProbna(cp);
 					id++;
 				} catch (IllegalArgumentException e) {
-					JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz masê i ³adunek w postaci liczb rzeczywistych");
+					JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz masê i ³adunek w postaci liczb rzeczywistych (masa musi byæ dodatnia)");
 				}
 			}
+			else
+				JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz masê i ³adunek w postaci liczb rzeczywistych (masa musi byæ dodatnia)");
 		}
 	}
 	
@@ -195,16 +200,21 @@ public class MenuBoczne extends JPanel {
 		Graphics2D g2D = image.createGraphics();
 		obszarSymulacji.paintAll(g2D);
 		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+		jfc.setFileFilter(new FileNameExtensionFilter("*.png", ".png"));
 		File selectedFile = null;
 		int returnValue = jfc.showSaveDialog(null);
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
             selectedFile = jfc.getSelectedFile();
+            if (!jfc.getSelectedFile().getAbsolutePath().endsWith(".png"))
+            	selectedFile = new File(jfc.getSelectedFile() + ".png");
             System.out.println(selectedFile.getAbsolutePath());
         }
-		try {
-			ImageIO.write(image, "png", selectedFile);
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
+		if (selectedFile != null) {
+			try {
+				ImageIO.write(image, "PNG", selectedFile);
+			} catch (IOException e) {
+				System.out.println(e.getMessage());
+			}
 		}
 	}
 	

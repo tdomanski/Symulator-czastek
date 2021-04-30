@@ -37,14 +37,16 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 	private List<CzastkaProbna> czastkiProbne = new ArrayList<CzastkaProbna>();
 	private int draggableCzastkaIndex;
 	private String draggedCzastka;
+
 	private List<SymulacjaCzastki> symulacje = new ArrayList<SymulacjaCzastki>();
 	private Czastki cz;
 	private String aktualnyContent;//informacja, czy aktualnie wyœwietlane jest pole wektorowe, czy trajektorie cz¹stek
 	private ExecutorService exec;
-	public ObszarSymulacji() 
-	{
+	private int czastkaStacjonarnaRadius, czastkaProbnaRadius;
+	
+	public ObszarSymulacji() {
 		this.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(10, 10, 10, 10),  new EtchedBorder(Color.black,Color.black)));
-		aktualnyContent = "Pole";//Domyœlnie ustawiamy pokazywanie pola wektorowego
+		aktualnyContent = "Pole";//Domyslnie ustawiamy pokazywanie pola wektorowego
 		draggedCzastka = null;
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
@@ -71,11 +73,11 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 		super.paintComponent(g);
 
 		for (CzastkaStacjonarna cs : czastkiStacjonarne) {
-			cs.paint(g, this.getHeight()/25, this.getHeight()/25);
+			cs.paint(g, 2 * czastkaStacjonarnaRadius, 2 *czastkaStacjonarnaRadius);
 		}
 		
 		for (CzastkaProbna cp : czastkiProbne) {
-			cp.paint(g, this.getHeight()/45, this.getHeight()/45);
+			cp.paint(g, 2 *czastkaProbnaRadius, 2 *czastkaProbnaRadius);
 		}
 	}
 	
@@ -103,8 +105,8 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		for (CzastkaProbna cp : czastkiProbne) {
-			if (e.getX() - cp.getX() < this.getHeight()/50 && e.getX() - cp.getX() > -this.getHeight()/50 && 
-				e.getY() - cp.getY() < this.getHeight()/50 && e.getY() - cp.getY() > -this.getHeight()/50) {
+			if (e.getX() - cp.getX() < czastkaProbnaRadius/2 && e.getX() - cp.getX() > -czastkaProbnaRadius/2 && 
+				e.getY() - cp.getY() < czastkaProbnaRadius/2 && e.getY() - cp.getY() > -czastkaProbnaRadius/2) {
 					draggableCzastkaIndex = czastkiProbne.indexOf(cp);
 					draggedCzastka = "probna";
 					break;
@@ -112,8 +114,8 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 		}
 		
 		for (CzastkaStacjonarna cs : czastkiStacjonarne) {
-			if (e.getX() - cs.getX() < this.getHeight()/50 && e.getX() - cs.getX() > -this.getHeight()/50 && 
-				e.getY() - cs.getY() < this.getHeight()/50 && e.getY() - cs.getY() > -this.getHeight()/50) {
+			if (e.getX() - cs.getX() < czastkaStacjonarnaRadius/2 && e.getX() - cs.getX() > -czastkaStacjonarnaRadius/2 && 
+				e.getY() - cs.getY() < czastkaStacjonarnaRadius/2 && e.getY() - cs.getY() > -czastkaStacjonarnaRadius/2) {
 					draggableCzastkaIndex = czastkiStacjonarne.indexOf(cs);
 					draggedCzastka = "stacjonarna";
 					break;
@@ -121,15 +123,21 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 		}
 		
 		if (draggedCzastka == "probna") {
-			czastkiProbne.get(draggableCzastkaIndex).setX(e.getX());
-			czastkiProbne.get(draggableCzastkaIndex).setY(e.getY());
-			repaint();
+			if (e.getX() > 2 * this.czastkaProbnaRadius && e.getX() < this.getWidth() - 2 * this.czastkaProbnaRadius &&
+				e.getY() > 2 * this.czastkaProbnaRadius && e.getY() < this.getHeight() - 2 * this.czastkaProbnaRadius) {
+					czastkiProbne.get(draggableCzastkaIndex).setX(e.getX());
+					czastkiProbne.get(draggableCzastkaIndex).setY(e.getY());
+					repaint();
+			}
 		}
 		
 		else if (draggedCzastka == "stacjonarna") {
-			czastkiStacjonarne.get(draggableCzastkaIndex).setX(e.getX());
-			czastkiStacjonarne.get(draggableCzastkaIndex).setY(e.getY());
-			repaint();
+			if (e.getX() > 2 * this.czastkaStacjonarnaRadius && e.getX() < this.getWidth() - 2 * this.czastkaStacjonarnaRadius &&
+				e.getY() > 2 * this.czastkaStacjonarnaRadius && e.getY() < this.getHeight() - 2 * this.czastkaStacjonarnaRadius) {
+					czastkiStacjonarne.get(draggableCzastkaIndex).setX(e.getX());
+					czastkiStacjonarne.get(draggableCzastkaIndex).setY(e.getY());
+					repaint();
+			}
 		}
 	}
 
@@ -202,4 +210,20 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 //	        Thread.currentThread().interrupt();
 //	    }
 //	}
+
+	public int getCzastkaStacjonarnaRadius() {
+		return this.czastkaStacjonarnaRadius;
+	}
+	
+	public int getCzastkaProbnaRadius() {
+		return this.czastkaProbnaRadius;
+	}
+	
+	public void setCzastkaStacjonarnaRadius(int r) {
+		this.czastkaStacjonarnaRadius = r;
+	}
+	
+	public void setCzastkaProbnaRadius(int r) {
+		this.czastkaProbnaRadius = r;
+	}
 }
