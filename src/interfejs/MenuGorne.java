@@ -42,11 +42,11 @@ public class MenuGorne extends JPanel {
 	}//KONIEC KONSTRUKTORA
 	
 	public void uruchomSymulacje() {
-		
+		obszarSymulacji.uruchomExecutor();
 	}
 	
 	public void zatrzymajSymulacje() {
-		
+		obszarSymulacji.wylaczExecutor();
 	}
 	
 	public void ustawObszarSymulacji (ObszarSymulacji os) {

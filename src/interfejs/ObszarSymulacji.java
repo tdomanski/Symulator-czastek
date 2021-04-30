@@ -14,6 +14,9 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -25,16 +28,19 @@ import javax.swing.border.LineBorder;
 
 import czastki.parametry.CzastkaProbna;
 import czastki.parametry.CzastkaStacjonarna;
+import czastki.parametry.Czastki;
+import matematyczna.SymulacjaCzastki;
 
-public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotionListener {
+public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotionListener{
 	
 	private List<CzastkaStacjonarna> czastkiStacjonarne = new ArrayList<CzastkaStacjonarna>();
 	private List<CzastkaProbna> czastkiProbne = new ArrayList<CzastkaProbna>();
 	private int draggableCzastkaIndex;
 	private String draggedCzastka;
-
-	private String aktualnyContent;//informacja, czy aktualnie wyï¿½wietlane jest pole wektorowe, czy trajektorie czï¿½stek
-	
+	private List<SymulacjaCzastki> symulacje = new ArrayList<SymulacjaCzastki>();
+	private Czastki cz;
+	private String aktualnyContent;//informacja, czy aktualnie wyœwietlane jest pole wektorowe, czy trajektorie cz¹stek
+	private ExecutorService exec;
 	public ObszarSymulacji() 
 	{
 		this.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(10, 10, 10, 10),  new EtchedBorder(Color.black,Color.black)));
@@ -42,6 +48,10 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 		draggedCzastka = null;
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
+		cz = new Czastki();
+		
+		//exec = Executors.newCachedThreadPool(); //Pozwala dodawac nowe procesy
+//		awaitTerminationAfterShutdown(exec); //Pozwala na dokonczenie wszystkich threadow do konca
 	}
 //	public void actionPerformed(ActionEvent e) {
 //		
@@ -145,11 +155,54 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 	
 	public void dodajCzastkeStacjonarna(CzastkaStacjonarna cs) {
 		czastkiStacjonarne.add(cs);
+		cz.addCzastkaStacjonarna(cs);
 		repaint();
+		
 	}
 	
 	public void dodajCzastkeProbna(CzastkaProbna cp) {
 		czastkiProbne.add(cp);
+		cz.addCzastkaProbna(cp);
+		symulacje.add(cp.getSym());
+		symulacje.get(symulacje.size()-1).setCzastki(cz);
+		symulacje.get(symulacje.size()-1).setdt(0.001);
 		repaint();
 	}
+	
+	public void uruchomExecutor()
+	{
+		exec = Executors.newFixedThreadPool(symulacje.size());
+		for (SymulacjaCzastki sym : symulacje) {
+			exec.execute(sym);
+		}
+	}
+	
+	public void wylaczExecutor()
+	{
+//		awaitTerminationAfterShutdown(exec)
+		exec.shutdown();
+		try {
+			exec.awaitTermination(1, null);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void repaintObszarSymulacji() 
+	{
+		repaint();
+	}
+	
+//	public void awaitTerminationAfterShutdown(ExecutorService threadPool) {
+//	    threadPool.shutdown();
+//	    try {
+//	        if (!threadPool.awaitTermination(60, TimeUnit.SECONDS)) {
+//	            threadPool.shutdownNow();
+//	        }
+//	    } catch (InterruptedException ex) {
+//	        threadPool.shutdownNow();
+//	        Thread.currentThread().interrupt();
+//	    }
+//	}
 }

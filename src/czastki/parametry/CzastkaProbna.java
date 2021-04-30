@@ -32,9 +32,14 @@ public class CzastkaProbna {
 		this.ladunek = q;
 		this.vx = vx;
 		this.vy = vy;
+		this.id=id;
 		sym = new SymulacjaCzastki(this);
 	}
 	
+	public SymulacjaCzastki getSym() {
+		return sym;
+	}
+
 	public int getX() {
 		return x;
 	}

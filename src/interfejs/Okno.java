@@ -29,7 +29,7 @@ public class Okno extends JFrame {
 		this.add(menuBoczne,BorderLayout.LINE_END);
 		this.add(obszarSymulacji,BorderLayout.CENTER);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		//this.setSize(1000, 1000);
+		this.setSize(600, 600);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setVisible(true);
 		//this.setResizable(false);
