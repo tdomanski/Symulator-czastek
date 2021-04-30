@@ -1,5 +1,12 @@
 package czastki.parametry;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 import matematyczna.SymulacjaCzastki;
 
 public class CzastkaProbna {
@@ -15,6 +22,8 @@ public class CzastkaProbna {
 	private double Ex;
 	private double Ey;
 	private SymulacjaCzastki sym;
+	public final BufferedImage plusChargeImage = loadBufferedImage("/pluscharge.png");
+	public final BufferedImage minusChargeImage = loadBufferedImage("/minuscharge.png");
 	
 	public CzastkaProbna(int x, int y, double m, double q, double vx, double vy, int id) {
 		this.x = x;
@@ -96,6 +105,27 @@ public class CzastkaProbna {
 
 	public void setEy(double ey) {
 		Ey = ey;
+	}
+	
+	private BufferedImage loadBufferedImage(String string)
+	{
+	    try
+	    {
+	        BufferedImage bi = ImageIO.read(this.getClass().getResource(string));
+	        return bi;
+	    } catch (IOException e)
+	    {
+	        e.printStackTrace();
+	    }
+	    return null;
+	}
+	
+	public void paint(Graphics g,int width, int height) {
+		if (this.ladunek > 0) {
+			g.drawImage(plusChargeImage, x - width/2, y - height/2, width, height, null);
+		}
+		else if (this.ladunek < 0)
+			g.drawImage(minusChargeImage, x - width/2, y - height/2, width, height, null);
 	}
 
 }

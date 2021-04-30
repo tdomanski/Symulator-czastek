@@ -6,12 +6,14 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileSystemView;
@@ -97,10 +99,7 @@ public class MenuBoczne extends JPanel {
 		
 		spacing1 = new JPanel();
 		dodajCzastkeButton = new JButton("Dodaj cz¹stkê");
-		ActionListener dodajCzastkeButtonListener = event -> {
-			this.dodajCzastke();
-		};
-		dodajCzastkeButton.addActionListener(dodajCzastkeButtonListener);
+		dodajCzastkeButton.addActionListener(event -> this.dodajCzastke());
 		spacing1.add(dodajCzastkeButton);
 		this.add(spacing1);
 		
@@ -111,17 +110,11 @@ public class MenuBoczne extends JPanel {
 		
 		
 		importujCzastkiButton = new JButton("Importuj cz¹stki");
-		ActionListener importujCzastkiButtonListener = event -> {
-			this.importujCzastki();
-		};
-		importujCzastkiButton.addActionListener(importujCzastkiButtonListener);
+		importujCzastkiButton.addActionListener(event -> this.importujCzastki());
 		center.add(importujCzastkiButton);
 		
 		eksportujCzastkiButton = new JButton("Eksportuj cz¹stki");
-		ActionListener eksportujCzastkiButtonListener = event -> {
-			this.eksportujCzastki();
-		};
-		eksportujCzastkiButton.addActionListener(eksportujCzastkiButtonListener);
+		eksportujCzastkiButton.addActionListener(event -> this.eksportujCzastki());
 		center.add(eksportujCzastkiButton);
 		
 		
@@ -140,10 +133,7 @@ public class MenuBoczne extends JPanel {
 		
 		
 		eksportujObrazButton = new JButton("Eksportuj Obraz");
-		ActionListener eksportujObrazButtonListener = event -> {
-			this.eksportujObraz();
-		};
-		eksportujObrazButton.addActionListener(eksportujObrazButtonListener);
+		eksportujObrazButton.addActionListener(event -> this.eksportujObraz());
 		bottom.add(eksportujObrazButton);
 		
 		this.add(bottom);
@@ -166,16 +156,29 @@ public class MenuBoczne extends JPanel {
 	}
 	
 	public void dodajCzastke() {
+		Random r = new Random();
 		if (czastkaStacjonarnaSelected == true) {
-			CzastkaStacjonarna cs = new CzastkaStacjonarna(obszarSymulacji.getWidth()/2, obszarSymulacji.getHeight()/2, Double.valueOf(ladunekField.getText()));
-			obszarSymulacji.dodajCzastkeStacjonarna(cs);
+			if (ladunekField.getText().isBlank() == false) {
+				try {
+					CzastkaStacjonarna cs = new CzastkaStacjonarna(r.nextInt(obszarSymulacji.getWidth()), r.nextInt(obszarSymulacji.getHeight()), Double.valueOf(ladunekField.getText()));
+					obszarSymulacji.dodajCzastkeStacjonarna(cs);
+				} catch (IllegalArgumentException e) {
+					JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz ³adunek w postaci liczby rzeczywistej");
+				}
+			}
 		}
 		
 		else if (czastkaProbnaSelected == true) {
-			CzastkaProbna cp = new CzastkaProbna(obszarSymulacji.getWidth()/2, obszarSymulacji.getHeight()/2,
-												 Double.valueOf(masaField.getText()), Double.valueOf(ladunekField.getText()), 0, 0,id);
-			obszarSymulacji.dodajCzastkeProbna(cp);
-			id++;
+			if (masaField.getText().isBlank() == false && ladunekField.getText().isBlank() == false) {
+				try {
+					CzastkaProbna cp = new CzastkaProbna(r.nextInt(obszarSymulacji.getWidth()), r.nextInt(obszarSymulacji.getHeight()),
+							 Double.valueOf(masaField.getText()), Double.valueOf(ladunekField.getText()), 0, 0, id);
+					obszarSymulacji.dodajCzastkeProbna(cp);
+					id++;
+				} catch (IllegalArgumentException e) {
+					JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz masê i ³adunek w postaci liczb rzeczywistych");
+				}
+			}
 		}
 	}
 	

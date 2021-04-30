@@ -26,8 +26,9 @@ public class Okno extends JFrame {
 		this.add(menuBoczne,BorderLayout.LINE_END);
 		this.add(obszarSymulacji,BorderLayout.CENTER);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		//this.setSize(1000, 1000);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setVisible(true);
-		this.setSize(800,800);
 		//this.setResizable(false);
 		this.setTitle("Symulator cz¹stek w polu elektrycznym");
 	}
@@ -35,5 +36,4 @@ public class Okno extends JFrame {
 	public static void main(String[] args) {
 		Okno okno = new Okno();
 	}
-	
 }
