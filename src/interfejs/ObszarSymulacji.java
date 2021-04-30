@@ -16,6 +16,9 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 
 import czastki.parametry.CzastkaProbna;
@@ -25,12 +28,11 @@ public class ObszarSymulacji extends JPanel implements MouseListener{
 	
 	private List<CzastkaStacjonarna> czastkiStacjonarne = new ArrayList<CzastkaStacjonarna>();
 	private List<CzastkaProbna> czastkiProbne = new ArrayList<CzastkaProbna>();
-
 	private String aktualnyContent;//informacja, czy aktualnie wyœwietlane jest pole wektorowe, czy trajektorie cz¹stek
 	
 	public ObszarSymulacji() 
 	{
-		this.setBorder(new LineBorder(Color.black, 2,true));
+		this.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(10, 10, 10, 10),  new EtchedBorder(Color.black,Color.black)));
 	}
 //	public void actionPerformed(ActionEvent e) {
 //		
