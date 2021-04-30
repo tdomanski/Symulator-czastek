@@ -14,7 +14,7 @@ public class SymulacjaCzastki implements Runnable {
 	private double dt=-1;
 	private double dx=0;
 	private double dy=0;
-	
+	private boolean simGoing=true;
 	public SymulacjaCzastki(CzastkaProbna cz) {
 		id=cz.getId();
 		this.cz=cz;
@@ -29,25 +29,19 @@ public class SymulacjaCzastki implements Runnable {
 		{
 			if(j!=id)
 			{
-				sumaEx+=oblicz.czastkaEx(czastki.getCzastkeProbna(j).getX(), czastki.getCzastkeProbna(j).getY(),czastki.getCzastkeProbna(j).getX() , czastki.getCzastkeProbna(id).getX(), czastki.getCzastkeProbna(j).getLadunek());
-				sumaEy+=oblicz.czastkaEy(czastki.getCzastkeProbna(j).getX(), czastki.getCzastkeProbna(j).getY(),czastki.getCzastkeProbna(j).getX() , czastki.getCzastkeProbna(id).getX(), czastki.getCzastkeProbna(j).getLadunek());
+				sumaEx+=oblicz.czastkaEx(czastki.getCzastkeProbna(j).getX(), czastki.getCzastkeProbna(j).getY(),czastki.getCzastkeProbna(id).getX() , czastki.getCzastkeProbna(id).getY(), czastki.getCzastkeProbna(j).getLadunek());
+				sumaEy+=oblicz.czastkaEy(czastki.getCzastkeProbna(j).getX(), czastki.getCzastkeProbna(j).getY(),czastki.getCzastkeProbna(id).getX() , czastki.getCzastkeProbna(id).getY(), czastki.getCzastkeProbna(j).getLadunek());
 			}
 		}
-		double tempEx=sumaEx;
-		double tempEy=sumaEy;
-		System.out.println("Probna:"+id+" "+sumaEx+" "+sumaEy);
 		for(int i=0;i<czastki.getIloscCzStacjon()-1;i++)
 		{
-				sumaEx+=oblicz.czastkaEx(czastki.getCzastkeStacjonarna(i).getX(), czastki.getCzastkeStacjonarna(i).getY(),czastki.getCzastkeStacjonarna(i).getX() ,czastki.getCzastkeStacjonarna(id).getX(), czastki.getCzastkeStacjonarna(i).getLadunek());
-				sumaEy+=oblicz.czastkaEx(czastki.getCzastkeStacjonarna(i).getX(), czastki.getCzastkeStacjonarna(i).getY(),czastki.getCzastkeStacjonarna(i).getX() ,czastki.getCzastkeStacjonarna(id).getX(), czastki.getCzastkeStacjonarna(i).getLadunek());
+				sumaEx+=oblicz.czastkaEx(czastki.getCzastkeStacjonarna(i).getX(), czastki.getCzastkeStacjonarna(i).getY(),czastki.getCzastkeStacjonarna(id).getX() ,czastki.getCzastkeStacjonarna(id).getY(), czastki.getCzastkeStacjonarna(i).getLadunek());
+				sumaEy+=oblicz.czastkaEy(czastki.getCzastkeStacjonarna(i).getX(), czastki.getCzastkeStacjonarna(i).getY(),czastki.getCzastkeStacjonarna(id).getX() ,czastki.getCzastkeStacjonarna(id).getY(), czastki.getCzastkeStacjonarna(i).getLadunek());
 		}
-		System.out.println("Stacjonarna:"+(sumaEx-tempEx)+" "+(sumaEy-tempEy));
 		double masa = czastki.getCzastkeProbna(id).getMasa();
 		double q = czastki.getCzastkeProbna(id).getLadunek();
-		dx=q/masa*sumaEx;
-		dx=dx/dt;
-		dy=q/masa*sumaEy;
-		dy=dy/dt;
+		dx=q/masa*sumaEx*dt;
+		dy=q/masa*sumaEy*dt;
 	}
 
 
@@ -80,8 +74,6 @@ public class SymulacjaCzastki implements Runnable {
 			Symulacja();
 			cz.setX(nowyX());
 			cz.setY(nowyY());
-			
-//			System.out.println("Cz+"+cz.getId()+"(x,y)=("+cz.getX()+","+cz.getY()+")");
 			try {
 				Thread.sleep(150);
 			} catch (InterruptedException e) {

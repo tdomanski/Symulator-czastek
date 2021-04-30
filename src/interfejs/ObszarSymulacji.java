@@ -49,9 +49,6 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
 		cz = new Czastki();
-		
-		//exec = Executors.newCachedThreadPool(); //Pozwala dodawac nowe procesy
-//		awaitTerminationAfterShutdown(exec); //Pozwala na dokonczenie wszystkich threadow do konca
 	}
 //	public void actionPerformed(ActionEvent e) {
 //		

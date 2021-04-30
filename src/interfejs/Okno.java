@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
+import matematyczna.Obliczenia;
+
 public class Okno extends JFrame {
 	private MenuGorne menuGorne;
 	private ObszarSymulacji obszarSymulacji;
@@ -29,7 +31,7 @@ public class Okno extends JFrame {
 		this.add(menuBoczne,BorderLayout.LINE_END);
 		this.add(obszarSymulacji,BorderLayout.CENTER);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		this.setSize(600, 600);
+//		this.setSize(600, 600);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setVisible(true);
 		//this.setResizable(false);

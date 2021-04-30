@@ -8,7 +8,7 @@ import czastki.parametry.Czastki;
 
 public class Obliczenia {
 	private static double PI = 3.14159265;
-	private static double epsilon0 = 8.85417E-12; //przenikalnosc elektryczna prozni
+	private static double epsilon0 = 8.85417*Math.pow(10,-12); //przenikalnosc elektryczna prozni 
 //	public Obliczenia() {
 //		
 //	}
