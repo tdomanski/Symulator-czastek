@@ -20,18 +20,12 @@ public class MenuGorne extends JPanel {
 		
 		uruchomButton = new JButton("Uruchom");
 		uruchomButton.setToolTipText("Uruchom symulacjê");
-		ActionListener uruchomButtonListener = event -> {
-			this.uruchomSymulacje();
-		};
-		uruchomButton.addActionListener(uruchomButtonListener);
+		uruchomButton.addActionListener(event -> this.uruchomSymulacje());
 		this.add(uruchomButton);
 		
 		zatrzymajButton = new JButton("Zatrzymaj");
 		zatrzymajButton.setToolTipText("Zatrzymaj symulacjê");
-		ActionListener zatrzymajButtonListener = event -> {
-			this.zatrzymajSymulacje();
-		};
-		zatrzymajButton.addActionListener(zatrzymajButtonListener);
+		zatrzymajButton.addActionListener(event -> this.zatrzymajSymulacje());
 		this.add(zatrzymajButton);
 		
 		poleTrajektorieButton = new JButton("Pole / Trajektorie cz¹stek");

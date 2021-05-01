@@ -3,6 +3,7 @@ package interfejs;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -37,6 +38,7 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 	private List<CzastkaProbna> czastkiProbne = new ArrayList<CzastkaProbna>();
 	private int draggableCzastkaIndex;
 	private String draggedCzastka;
+	private boolean isMouseOverCzastka;
 
 	private List<SymulacjaCzastki> symulacje = new ArrayList<SymulacjaCzastki>();
 	private Czastki cz;
@@ -105,8 +107,8 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		for (CzastkaProbna cp : czastkiProbne) {
-			if (e.getX() - cp.getX() < czastkaProbnaRadius/2 && e.getX() - cp.getX() > -czastkaProbnaRadius/2 && 
-				e.getY() - cp.getY() < czastkaProbnaRadius/2 && e.getY() - cp.getY() > -czastkaProbnaRadius/2) {
+			if (e.getX() - cp.getX() < czastkaProbnaRadius && e.getX() - cp.getX() > -czastkaProbnaRadius && 
+				e.getY() - cp.getY() < czastkaProbnaRadius && e.getY() - cp.getY() > -czastkaProbnaRadius) {
 					draggableCzastkaIndex = czastkiProbne.indexOf(cp);
 					draggedCzastka = "probna";
 					break;
@@ -132,8 +134,8 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 		}
 		
 		else if (draggedCzastka == "stacjonarna") {
-			if (e.getX() > 2 * this.czastkaStacjonarnaRadius && e.getX() < this.getWidth() - 2 * this.czastkaStacjonarnaRadius &&
-				e.getY() > 2 * this.czastkaStacjonarnaRadius && e.getY() < this.getHeight() - 2 * this.czastkaStacjonarnaRadius) {
+			if (e.getX() > 1.5 * this.czastkaStacjonarnaRadius && e.getX() < this.getWidth() - 1.5 * this.czastkaStacjonarnaRadius &&
+				e.getY() > 1.5 * this.czastkaStacjonarnaRadius && e.getY() < this.getHeight() - 1.5 * this.czastkaStacjonarnaRadius) {
 					czastkiStacjonarne.get(draggableCzastkaIndex).setX(e.getX());
 					czastkiStacjonarne.get(draggableCzastkaIndex).setY(e.getY());
 					repaint();
@@ -142,8 +144,26 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 	}
 
 	@Override
-	public void mouseMoved(MouseEvent e) {
+	public void mouseMoved(MouseEvent e) { //Jesli uzytkownik przesunie kursor nad czastke, to strzalka zmieni sie na lapke
+		for (CzastkaProbna cp : czastkiProbne) {
+			if (e.getX() - cp.getX() < czastkaProbnaRadius && e.getX() - cp.getX() > -czastkaProbnaRadius && 
+				e.getY() - cp.getY() < czastkaProbnaRadius && e.getY() - cp.getY() > -czastkaProbnaRadius) {
+					isMouseOverCzastka = true;
+			}
+		}
 		
+		for (CzastkaStacjonarna cs : czastkiStacjonarne) {
+			if (e.getX() - cs.getX() < czastkaStacjonarnaRadius/2 && e.getX() - cs.getX() > -czastkaStacjonarnaRadius/2 && 
+				e.getY() - cs.getY() < czastkaStacjonarnaRadius/2 && e.getY() - cs.getY() > -czastkaStacjonarnaRadius/2) {
+					isMouseOverCzastka = true;
+			}
+		}
+		
+		if (isMouseOverCzastka == true)
+			this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		else
+			this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+		isMouseOverCzastka = false;
 	}
 	
 	public void przelaczPoleTrajektorie() {

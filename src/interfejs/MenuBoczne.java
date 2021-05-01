@@ -170,14 +170,22 @@ public class MenuBoczne extends JPanel {
 					JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz ³adunek w postaci liczby rzeczywistej");
 				}
 			}
+			else
+				JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz ³adunek w postaci liczby rzeczywistej");
 		}
 		
 		else if (czastkaProbnaSelected == true) {
-			if (masaField.getText().isBlank() == false && ladunekField.getText().isBlank() == false && Double.valueOf(masaField.getText()) > 0) {
+			if (masaField.getText().isBlank() == false && ladunekField.getText().isBlank() == false) {
 				try {
-					CzastkaProbna cp = new CzastkaProbna(randomX, randomY,Double.valueOf(masaField.getText()), Double.valueOf(ladunekField.getText()), 0, 0, id);
-					obszarSymulacji.dodajCzastkeProbna(cp);
-					id++;
+					double m = Double.valueOf(masaField.getText());
+					double q = Double.valueOf(ladunekField.getText());
+					if (m > 0) {
+						CzastkaProbna cp = new CzastkaProbna(randomX, randomY, m, q, 0, 0, id);
+						obszarSymulacji.dodajCzastkeProbna(cp);
+						id++;
+					}
+					else
+						JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz masê i ³adunek w postaci liczb rzeczywistych (masa musi byæ dodatnia)");
 				} catch (IllegalArgumentException e) {
 					JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz masê i ³adunek w postaci liczb rzeczywistych (masa musi byæ dodatnia)");
 				}
