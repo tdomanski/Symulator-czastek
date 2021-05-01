@@ -14,6 +14,8 @@ public class SymulacjaCzastki implements Runnable {
 	private double dt=-1;
 	private double dx=0;
 	private double dy=0;
+	private double dvx = 0;
+	private double dvy = 0;
 	private boolean simGoing=true;
 	public SymulacjaCzastki(CzastkaProbna cz) {
 		id=cz.getId();
@@ -40,8 +42,12 @@ public class SymulacjaCzastki implements Runnable {
 		}
 		double masa = czastki.getCzastkeProbna(id).getMasa();
 		double q = czastki.getCzastkeProbna(id).getLadunek();
-		dx=q/masa*sumaEx*dt;
-		dy=q/masa*sumaEy*dt;
+		dvx = q/masa*sumaEx*dt;
+		dvy = q/masa*sumaEy*dt;
+		czastki.getCzastkeProbna(id).setVx(czastki.getCzastkeProbna(id).getVx() + dvx);
+		czastki.getCzastkeProbna(id).setVy(czastki.getCzastkeProbna(id).getVy() + dvy);
+		dx = czastki.getCzastkeProbna(id).getVx()*dt;
+		dy = czastki.getCzastkeProbna(id).getVy()*dt;
 	}
 
 
