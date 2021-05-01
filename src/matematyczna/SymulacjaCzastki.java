@@ -40,14 +40,14 @@ public class SymulacjaCzastki implements Runnable {
 				sumaEx+=oblicz.czastkaEx(czastki.getCzastkeStacjonarna(i).getX(), czastki.getCzastkeStacjonarna(i).getY(),czastki.getCzastkeStacjonarna(id).getX() ,czastki.getCzastkeStacjonarna(id).getY(), czastki.getCzastkeStacjonarna(i).getLadunek());
 				sumaEy+=oblicz.czastkaEy(czastki.getCzastkeStacjonarna(i).getX(), czastki.getCzastkeStacjonarna(i).getY(),czastki.getCzastkeStacjonarna(id).getX() ,czastki.getCzastkeStacjonarna(id).getY(), czastki.getCzastkeStacjonarna(i).getLadunek());
 		}
-		double masa = czastki.getCzastkeProbna(id).getMasa();
-		double q = czastki.getCzastkeProbna(id).getLadunek();
+		double masa = cz.getMasa();
+		double q = cz.getLadunek();
 		dvx = q/masa*sumaEx*dt;
 		dvy = q/masa*sumaEy*dt;
-		czastki.getCzastkeProbna(id).setVx(czastki.getCzastkeProbna(id).getVx() + dvx);
-		czastki.getCzastkeProbna(id).setVy(czastki.getCzastkeProbna(id).getVy() + dvy);
-		dx = czastki.getCzastkeProbna(id).getVx()*dt;
-		dy = czastki.getCzastkeProbna(id).getVy()*dt;
+		cz.setVx(cz.getVx() + dvx);
+		cz.setVy(cz.getVy() + dvy);
+		dx = cz.getVx()*dt;
+		dy = cz.getVy()*dt;
 	}
 
 
