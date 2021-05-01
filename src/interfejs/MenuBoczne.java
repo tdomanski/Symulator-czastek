@@ -38,6 +38,7 @@ public class MenuBoczne extends JPanel {
 	private JLabel parametryNowejCzastkiLabel;
 	private JTextField masaField;
 	private JTextField ladunekField;
+	TextPrompt masaInitialText, ladunekInitialText;
 	private JButton dodajCzastkeButton;
 	private JButton importujCzastkiButton;
 	private JButton eksportujCzastkiButton;
@@ -61,6 +62,8 @@ public class MenuBoczne extends JPanel {
 		czastkaStacjonarnaButton = new JButton("Nowa cz¹stka stacjonarna");
 		ActionListener czastkaStacjonarnaButtonListener = event -> {
 			this.ustawWyborNowaCzastkaStacjonarna();
+			masaField.setText(null);
+			ladunekField.setText(null);
 		};
 		czastkaStacjonarnaButton.addActionListener(czastkaStacjonarnaButtonListener);
 		top.add(czastkaStacjonarnaButton);
@@ -69,6 +72,8 @@ public class MenuBoczne extends JPanel {
 		czastkaProbnaButton = new JButton("Nowa cz¹stka próbna");
 		ActionListener czastkaProbnaButtonListener = event -> {
 			this.ustawWyborNowaCzastkaProbna();
+			masaField.setText(null);
+			ladunekField.setText(null);
 		};
 		czastkaProbnaButton.addActionListener(czastkaProbnaButtonListener);
 		top.add(czastkaProbnaButton);
@@ -85,12 +90,12 @@ public class MenuBoczne extends JPanel {
 		
 		masaField = new JTextField();
 		masaField.setEditable(false);
-		TextPrompt masaInitialText = new TextPrompt("masa", masaField);
+		masaInitialText = new TextPrompt("masa", masaField);
 		masaInitialText.changeAlpha(128);
 		top.add(masaField);
 		ladunekField = new JTextField();
 		ladunekField.setEditable(false);
-		TextPrompt ladunekInitialText = new TextPrompt("³adunek", ladunekField);
+		ladunekInitialText = new TextPrompt("³adunek", ladunekField);
 		ladunekInitialText.changeAlpha(128);
 		top.add(ladunekField);
 		
@@ -157,15 +162,18 @@ public class MenuBoczne extends JPanel {
 	}
 	
 	public void dodajCzastke() {
-		obszarSymulacji.setCzastkaStacjonarnaRadius(obszarSymulacji.getHeight()/50);
+		obszarSymulacji.setCzastkaStacjonarnaRadius(obszarSymulacji.getHeight()/50); // Skalowanie rozmiarow czastek do rozmiaru obszaru symulacji
 		obszarSymulacji.setCzastkaProbnaRadius(obszarSymulacji.getHeight()/100);
-		int randomX = 2 *obszarSymulacji.getCzastkaStacjonarnaRadius() + (int)(Math.random() * (obszarSymulacji.getWidth() - 4 * obszarSymulacji.getCzastkaStacjonarnaRadius()));
+		
+		int randomX = 2 *obszarSymulacji.getCzastkaStacjonarnaRadius() + (int)(Math.random() * (obszarSymulacji.getWidth() - 4 * obszarSymulacji.getCzastkaStacjonarnaRadius())); // Losowe pozycje poczatkowe czastek
 		int randomY = 2 *obszarSymulacji.getCzastkaStacjonarnaRadius() + (int)(Math.random() * (obszarSymulacji.getHeight() - 4 * obszarSymulacji.getCzastkaStacjonarnaRadius()));
-		if (czastkaStacjonarnaSelected == true) {
+		
+		if (czastkaStacjonarnaSelected == true) { // Dodawanie czastki stacjonarnej
 			if (ladunekField.getText().isBlank() == false) {
 				try {
 					CzastkaStacjonarna cs = new CzastkaStacjonarna(randomX, randomY, Double.valueOf(ladunekField.getText()));
 					obszarSymulacji.dodajCzastkeStacjonarna(cs);
+					obszarSymulacji.obliczExWPunkcie(obszarSymulacji.getWidth(), obszarSymulacji.getHeight()/2);
 				} catch (IllegalArgumentException e) {
 					JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz ³adunek w postaci liczby rzeczywistej");
 				}
@@ -174,7 +182,7 @@ public class MenuBoczne extends JPanel {
 				JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz ³adunek w postaci liczby rzeczywistej");
 		}
 		
-		else if (czastkaProbnaSelected == true) {
+		else if (czastkaProbnaSelected == true) { // Dodawanie czastki probnej
 			if (masaField.getText().isBlank() == false && ladunekField.getText().isBlank() == false) {
 				try {
 					double m = Double.valueOf(masaField.getText());
@@ -226,7 +234,7 @@ public class MenuBoczne extends JPanel {
 		}
 	}
 	
-	public void ustawObszarSymulacji(ObszarSymulacji os) {
+	public void ustawObszarSymulacji(ObszarSymulacji os) { // przypisanie obszaru symulacji, za ktory odpowiedzialne jest to menu
 		this.obszarSymulacji = os;
 	}
 }

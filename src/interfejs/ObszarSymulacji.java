@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -13,6 +14,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -22,6 +24,8 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Popup;
+import javax.swing.PopupFactory;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
@@ -30,6 +34,7 @@ import javax.swing.border.LineBorder;
 import czastki.parametry.CzastkaProbna;
 import czastki.parametry.CzastkaStacjonarna;
 import czastki.parametry.Czastki;
+import matematyczna.Obliczenia;
 import matematyczna.SymulacjaCzastki;
 
 public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotionListener{
@@ -38,13 +43,16 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 	private List<CzastkaProbna> czastkiProbne = new ArrayList<CzastkaProbna>();
 	private int draggableCzastkaIndex;
 	private String draggedCzastka;
-	private boolean isMouseOverCzastka;
-
+	private boolean isMouseOverCzastkaProbna, isMouseOverCzastkaStacjonarna;
+	private double targetedCzastkaStacjonarnaLadunek, targetedCzastkaProbnaMasa, targetedCzastkaProbnaLadunek;
+	private int czastkaStacjonarnaRadius, czastkaProbnaRadius;
+	private Obliczenia obliczenia;
 	private List<SymulacjaCzastki> symulacje = new ArrayList<SymulacjaCzastki>();
 	private Czastki cz;
 	private String aktualnyContent;//informacja, czy aktualnie wyœwietlane jest pole wektorowe, czy trajektorie cz¹stek
 	private ExecutorService exec;
-	private int czastkaStacjonarnaRadius, czastkaProbnaRadius;
+	private final int ARR_SIZE = 3;
+	
 	
 	public ObszarSymulacji() {
 		this.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(10, 10, 10, 10),  new EtchedBorder(Color.black,Color.black)));
@@ -53,6 +61,7 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
 		cz = new Czastki();
+		obliczenia = new Obliczenia();
 	}
 //	public void actionPerformed(ActionEvent e) {
 //		
@@ -81,6 +90,8 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 		for (CzastkaProbna cp : czastkiProbne) {
 			cp.paint(g, 2 *czastkaProbnaRadius, 2 *czastkaProbnaRadius);
 		}
+		if (aktualnyContent == "Pole" && czastkiStacjonarne.isEmpty() == false)
+			this.obliczINarysujPoleElektryczne(g);
 	}
 	
 	public void mousePressed(MouseEvent e) {
@@ -101,7 +112,7 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
 	}
 	
 	@Override
@@ -145,36 +156,42 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 
 	@Override
 	public void mouseMoved(MouseEvent e) { //Jesli uzytkownik przesunie kursor nad czastke, to strzalka zmieni sie na lapke
-		for (CzastkaProbna cp : czastkiProbne) {
-			if (e.getX() - cp.getX() < czastkaProbnaRadius && e.getX() - cp.getX() > -czastkaProbnaRadius && 
-				e.getY() - cp.getY() < czastkaProbnaRadius && e.getY() - cp.getY() > -czastkaProbnaRadius) {
-					isMouseOverCzastka = true;
-			}
-		}
-		
 		for (CzastkaStacjonarna cs : czastkiStacjonarne) {
 			if (e.getX() - cs.getX() < czastkaStacjonarnaRadius/2 && e.getX() - cs.getX() > -czastkaStacjonarnaRadius/2 && 
 				e.getY() - cs.getY() < czastkaStacjonarnaRadius/2 && e.getY() - cs.getY() > -czastkaStacjonarnaRadius/2) {
-					isMouseOverCzastka = true;
+					isMouseOverCzastkaStacjonarna = true;
+					targetedCzastkaStacjonarnaLadunek = cs.getLadunek();
 			}
 		}
 		
-		if (isMouseOverCzastka == true)
+		for (CzastkaProbna cp : czastkiProbne) {
+			if (e.getX() - cp.getX() < czastkaProbnaRadius && e.getX() - cp.getX() > -czastkaProbnaRadius && 
+				e.getY() - cp.getY() < czastkaProbnaRadius && e.getY() - cp.getY() > -czastkaProbnaRadius) {
+					isMouseOverCzastkaProbna = true;
+					targetedCzastkaProbnaMasa = cp.getMasa();
+					targetedCzastkaProbnaLadunek = cp.getLadunek();
+			}
+		}
+		
+		if (isMouseOverCzastkaStacjonarna == true || isMouseOverCzastkaProbna == true)
 			this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		else
 			this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		isMouseOverCzastka = false;
+		isMouseOverCzastkaStacjonarna = false;
+		isMouseOverCzastkaProbna = false;
 	}
 	
 	public void przelaczPoleTrajektorie() {
 		if (aktualnyContent == "Pole") {
 			aktualnyContent = "Trajektorie";
 			//System.out.println("Teraz trajektorie");
+			repaint();
 		}
 		
 		else if (aktualnyContent == "Trajektorie") {
 			aktualnyContent = "Pole";
 			//System.out.println("Teraz pole");
+			repaint();
 		}
 	}
 	
@@ -245,5 +262,47 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 	
 	public void setCzastkaProbnaRadius(int r) {
 		this.czastkaProbnaRadius = r;
+	}
+	
+	public double obliczExWPunkcie(int x0, int y0) {
+		double Ex = 0;
+		for (CzastkaStacjonarna cs : czastkiStacjonarne) {
+			Ex += obliczenia.czastkaEx(cs.getX(), cs.getY(), x0, y0, cs.getLadunek());
+		}
+		//System.out.println(Ex);
+		return Ex;
+	}
+	
+	public double obliczEyWPunkcie(int x0, int y0) {
+		double Ey = 0;
+		for (CzastkaStacjonarna cs : czastkiStacjonarne) {
+			Ey += obliczenia.czastkaEy(cs.getX(), cs.getY(), x0, y0, cs.getLadunek());
+		}
+		//System.out.println(Ey);
+		return Ey;
+	}
+	
+	void drawArrow(Graphics g, int x, int y, double theta) {
+        Graphics2D g2D = (Graphics2D) g.create();
+
+        int dlugosc = 10;
+        AffineTransform at = AffineTransform.getTranslateInstance(x, y);
+        at.concatenate(AffineTransform.getRotateInstance(theta));
+        g2D.transform(at);
+        //Ponizej rysujemy domyslna strzalke, ktora zostanie przetransformowana
+        g2D.drawLine(0, 0, dlugosc, 0);
+        g2D.fillPolygon(new int[] {dlugosc, dlugosc-ARR_SIZE, dlugosc-ARR_SIZE, dlugosc}, new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
+    }
+	
+	public void obliczINarysujPoleElektryczne(Graphics g) {
+		double Ex, Ey;
+		for (int xi = 20; xi < this.getWidth() - 20; xi += 20) {
+			for (int yi = 20; yi < this.getHeight() - 20; yi += 20) {
+				Ex = this.obliczExWPunkcie(xi, yi);
+				Ey = this.obliczEyWPunkcie(xi, yi);
+				double theta = Math.atan2(Ey, Ex);
+				this.drawArrow(g, xi, yi, theta);
+			}
+		}
 	}
 }

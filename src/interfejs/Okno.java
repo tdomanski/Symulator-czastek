@@ -3,7 +3,10 @@ package interfejs;
 import java.awt.BorderLayout;
 import java.awt.GraphicsConfiguration;
 import java.awt.HeadlessException;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.border.Border;
@@ -16,6 +19,7 @@ public class Okno extends JFrame {
 	private ObszarSymulacji obszarSymulacji;
 	private MenuBoczne menuBoczne;
 	private BorderLayout layout;
+	public final BufferedImage icon = loadBufferedImage("/electriccharges.png");
 	public Okno()
 	{
 		layout = new BorderLayout();
@@ -31,11 +35,25 @@ public class Okno extends JFrame {
 		this.add(menuBoczne,BorderLayout.LINE_END);
 		this.add(obszarSymulacji,BorderLayout.CENTER);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-//		this.setSize(600, 600);
+		//this.setSize(600, 600);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setVisible(true);
 		//this.setResizable(false);
 		this.setTitle("Symulator cz¹stek w polu elektrycznym");
+		this.setIconImage(icon);
+	}
+	
+	private BufferedImage loadBufferedImage(String string)
+	{
+	    try
+	    {
+	        BufferedImage bi = ImageIO.read(this.getClass().getResource(string));
+	        return bi;
+	    } catch (IOException e)
+	    {
+	        e.printStackTrace();
+	    }
+	    return null;
 	}
 	
 	public static void main(String[] args) {

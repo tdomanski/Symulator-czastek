@@ -43,7 +43,7 @@ public class MenuGorne extends JPanel {
 		obszarSymulacji.wylaczExecutor();
 	}
 	
-	public void ustawObszarSymulacji (ObszarSymulacji os) {
+	public void ustawObszarSymulacji (ObszarSymulacji os) { // przypisanie obszaru symulacji, za ktory odpowiedzialne jest to menu
 		this.obszarSymulacji = os;
 	}
 }
