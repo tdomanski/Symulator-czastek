@@ -229,40 +229,44 @@ public class MenuBoczne extends JPanel {
 		JFileChooser jfc = new JFileChooser();
 		int returnValue = jfc.showOpenDialog(null);
   		if (returnValue == JFileChooser.APPROVE_OPTION) {
-  	    selectedFile=jfc.getSelectedFile();
-  	    int nieWczytane=0;
-  	    try (BufferedReader br = new BufferedReader(new FileReader(selectedFile))) {
-  	    	String line;
-  	    	while ((line = br.readLine()) != null) {
-  	    		//System.out.println(line);
-  	    		String[] parametry = line.split(" ");
-  	    		System.out.print(parametry[0]+"\n");
-  	    		if(parametry[0].equals("S")) // Wczytywanie czastki stacjonarnej
-  	    		{
-  	    			CzastkaStacjonarna cs = new CzastkaStacjonarna(Integer.parseInt(parametry[1]), Integer.parseInt(parametry[1]), Double.parseDouble(parametry[3]));
-  	    			obszarSymulacji.dodajCzastkeStacjonarna(cs);
-  	    		}
-  	    		else if(parametry[0].equals("F")) // Wczytywanie czastki swobodnej
-  	    		{
-  	    			CzastkaProbna cp = new CzastkaProbna(Integer.parseInt(parametry[1]), Integer.parseInt(parametry[1]), Double.parseDouble(parametry[3]), Double.parseDouble(parametry[4]), 0, 0, id);
-  	    			obszarSymulacji.dodajCzastkeProbna(cp);
-  	    			id++;
-  	    		}
-  	    		else
-  	    		{
-  	    			nieWczytane++;
-  	    		}
-  	    		
-  	    	}
-  	    }
-  	    if(nieWczytane!=0)
-  	    {
-  	    	JOptionPane.showMessageDialog (null, "Nie wczytano "+nieWczytane+" parametrów cz¹stek!");
-  	    }
-  	    else
-  	    {
-  	    	obszarSymulacji.repaint();
-  	    }
+	  		if(jfc.getSelectedFile()!=null)
+	  		{
+	  	  	    selectedFile=jfc.getSelectedFile();
+	  	  	    int nieWczytane=0;
+	  	  	    try (BufferedReader br = new BufferedReader(new FileReader(selectedFile))) {
+	  	  	    	String line;
+	  	  	    	while ((line = br.readLine()) != null) {
+	  	  	    		//System.out.println(line);
+	  	  	    		String[] parametry = line.split(" ");
+	  	  	    		System.out.print(parametry[0]+"\n");
+	  	  	    		if(parametry[0].equals("S")) // Wczytywanie czastki stacjonarnej
+	  	  	    		{
+	  	  	    			CzastkaStacjonarna cs = new CzastkaStacjonarna(Integer.parseInt(parametry[1]), Integer.parseInt(parametry[1]), Double.parseDouble(parametry[3]));
+	  	  	    			obszarSymulacji.dodajCzastkeStacjonarna(cs);
+	  	  	    		}
+	  	  	    		else if(parametry[0].equals("F")) // Wczytywanie czastki swobodnej
+	  	  	    		{
+	  	  	    			CzastkaProbna cp = new CzastkaProbna(Integer.parseInt(parametry[1]), Integer.parseInt(parametry[1]), Double.parseDouble(parametry[3]), Double.parseDouble(parametry[4]), 0, 0, id);
+	  	  	    			obszarSymulacji.dodajCzastkeProbna(cp);
+	  	  	    			id++;
+	  	  	    		}
+	  	  	    		else
+	  	  	    		{
+	  	  	    			nieWczytane++;
+	  	  	    		}
+	  	  	    		
+	  	  	    	}
+	  	  	    }
+	  	  	    if(nieWczytane!=0)
+	  	  	    {
+	  	  	    	JOptionPane.showMessageDialog (null, "Nie wczytano "+nieWczytane+" parametrów cz¹stek!");
+	  	  	    }
+	  	  	    else
+	  	  	    {
+	  	  	    	obszarSymulacji.repaint();
+	  	  	    }
+	  		}
+
   	    }
   		else
   		{
@@ -337,7 +341,6 @@ public class MenuBoczne extends JPanel {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-					
 			}
 			else
 			{
