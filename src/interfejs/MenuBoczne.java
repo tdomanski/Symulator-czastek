@@ -194,7 +194,6 @@ public class MenuBoczne extends JPanel {
 				try {
 					CzastkaStacjonarna cs = new CzastkaStacjonarna(randomX, randomY, Double.valueOf(ladunekField.getText()));
 					obszarSymulacji.dodajCzastkeStacjonarna(cs);
-					obszarSymulacji.obliczExWPunkcie(obszarSymulacji.getWidth(), obszarSymulacji.getHeight()/2);
 				} catch (IllegalArgumentException e) {
 					JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz ≥adunek w postaci liczby rzeczywistej");
 				}
@@ -229,6 +228,7 @@ public class MenuBoczne extends JPanel {
 		JFileChooser jfc = new JFileChooser();
 		int returnValue = jfc.showOpenDialog(null);
   		if (returnValue == JFileChooser.APPROVE_OPTION) {
+<<<<<<< Upstream, based on branch 'main' of https://github.com/tdomanski/PO_Java_Projekt
 	  		if(jfc.getSelectedFile()!=null)
 	  		{
 	  	  	    selectedFile=jfc.getSelectedFile();
@@ -267,6 +267,42 @@ public class MenuBoczne extends JPanel {
 	  	  	    }
 	  		}
 
+=======
+  	    selectedFile=jfc.getSelectedFile();
+  	    int nieWczytane=0;
+  	    try (BufferedReader br = new BufferedReader(new FileReader(selectedFile))) {
+  	    	String line;
+  	    	while ((line = br.readLine()) != null) {
+  	    		//System.out.println(line);
+  	    		String[] parametry = line.split(" ");
+  	    		System.out.print(parametry[0]+"\n");
+  	    		if(parametry[0].equals("S")) // Wczytywanie czastki stacjonarnej
+  	    		{
+  	    			CzastkaStacjonarna cs = new CzastkaStacjonarna(Integer.parseInt(parametry[1]), Integer.parseInt(parametry[2]), Double.parseDouble(parametry[3]));
+  	    			obszarSymulacji.dodajCzastkeStacjonarna(cs);
+  	    		}
+  	    		else if(parametry[0].equals("F")) // Wczytywanie czastki swobodnej
+  	    		{
+  	    			CzastkaProbna cp = new CzastkaProbna(Integer.parseInt(parametry[1]), Integer.parseInt(parametry[2]), Double.parseDouble(parametry[3]), Double.parseDouble(parametry[4]), 0, 0, id);
+  	    			obszarSymulacji.dodajCzastkeProbna(cp);
+  	    			id++;
+  	    		}
+  	    		else
+  	    		{
+  	    			nieWczytane++;
+  	    		}
+  	    		
+  	    	}
+  	    }
+  	    if(nieWczytane!=0)
+  	    {
+  	    	JOptionPane.showMessageDialog (null, "Nie wczytano "+nieWczytane+" parametrÛw czπstek!");
+  	    }
+  	    else
+  	    {
+  	    	obszarSymulacji.repaint();
+  	    }
+>>>>>>> 81c606e Przy imporcie wczytywanie pierwszego parametru by≈Ço zdublowane
   	    }
   		else
   		{
