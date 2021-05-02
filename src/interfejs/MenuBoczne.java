@@ -186,7 +186,7 @@ public class MenuBoczne extends JPanel {
 	public void ustawWyborNowaCzastkaProbna() {
 		czastkaProbnaSelected = true;
 		czastkaStacjonarnaSelected = false;
-		parametryNowejCzastkiLabel.setText("<html>Parametry nowej cząstki<br/> prďż˝bnej<html>");
+		parametryNowejCzastkiLabel.setText("<html>Parametry nowej cząstki<br/> próbnej<html>");
 		masaField.setEditable(true);
 		ladunekField.setEditable(true);
 	}
@@ -228,7 +228,7 @@ public class MenuBoczne extends JPanel {
 				}
 			}
 			else
-				JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz masę˝ i ładunek w postaci liczb rzeczywistych (masa musi być dodatnia)");
+				JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz masę i ładunek w postaci liczb rzeczywistych (masa musi być dodatnia)");
 		}
 	}
 	
