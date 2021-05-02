@@ -231,8 +231,6 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 		}
 	}
 	
-	
-	
 	public void wylaczExecutor()
 	{
 		if(onSymulacja)
@@ -244,8 +242,6 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 			onSymulacja=false;
 		}
 	}
-	
-	
 	
 	public void repaintObszarSymulacji() 
 	{
@@ -339,5 +335,4 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 	public Czastki getCz() {
 		return cz;
 	}
-	
 }
