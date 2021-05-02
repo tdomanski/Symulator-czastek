@@ -46,6 +46,7 @@ public class MenuBoczne extends JPanel {
 	
 	private JButton czastkaStacjonarnaButton;
 	private JButton czastkaProbnaButton;
+	private JButton usunCzastkiButton;
 	private JLabel parametryNowejCzastkiLabel;
 	private JTextField masaField;
 	private JTextField ladunekField;
@@ -55,14 +56,14 @@ public class MenuBoczne extends JPanel {
 	private JButton eksportujCzastkiButton;
 	private JButton eksportujObrazButton;
 	private int id=0; //Numer czastki
-	private ObszarSymulacji obszarSymulacji;//Obszar symulacji, za ktďż˝ry odpowiedzialne jest to menu
+	private ObszarSymulacji obszarSymulacji;//Obszar symulacji, za który odpowiedzialne jest to menu
 	
 	public MenuBoczne() {//KONSTRUKTOR
 		this.setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
 		GridLayout layout1 = new GridLayout(5,1);
 		//layout1.setHgap(2);
 		//layout1.setVgap(2);
-		GridLayout layout2 = new GridLayout(5,1);
+		GridLayout layout2 = new GridLayout(6,1);
 		layout2.setHgap(1);
 		layout2.setVgap(1);
 		this.setLayout(layout1);		
@@ -121,6 +122,9 @@ public class MenuBoczne extends JPanel {
 		dodajCzastkeButton = new JButton("Dodaj cząstkę");
 		dodajCzastkeButton.addActionListener(event -> this.dodajCzastke());
 		spacing1.add(dodajCzastkeButton);
+		usunCzastkiButton = new JButton("Usuń cząstki");
+		usunCzastkiButton.addActionListener(event -> this.usunCzastki());
+		spacing1.add(usunCzastkiButton);
 		this.add(spacing1);
 		
 		GridLayout layout3 = new GridLayout(6,1);
@@ -169,6 +173,8 @@ public class MenuBoczne extends JPanel {
 		this.add(bottom);
 	}//KONIEC KONSTRUKTORA
 	
+
+
 	public void ustawWyborNowaCzastkaStacjonarna() {
 		czastkaStacjonarnaSelected = true;
 		czastkaProbnaSelected = false;
@@ -373,6 +379,11 @@ public class MenuBoczne extends JPanel {
 				System.out.println(e.getMessage());
 			}
 		}
+	}
+	
+	private void usunCzastki() {
+		obszarSymulacji.usunWszystkieCzastki();
+		id=0;
 	}
 	
 	public void ustawObszarSymulacji(ObszarSymulacji os) { // przypisanie obszaru symulacji, za ktory odpowiedzialne jest to menu
