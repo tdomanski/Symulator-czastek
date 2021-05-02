@@ -5,9 +5,15 @@ import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
@@ -122,7 +128,14 @@ public class MenuBoczne extends JPanel {
 		
 		
 		importujCzastkiButton = new JButton("Importuj cz¹stki");
-		importujCzastkiButton.addActionListener(event -> this.importujCzastki());
+		importujCzastkiButton.addActionListener(event -> {
+			try {
+				this.importujCzastki();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
 		center.add(importujCzastkiButton);
 		
 		eksportujCzastkiButton = new JButton("Eksportuj cz¹stki");
@@ -211,8 +224,50 @@ public class MenuBoczne extends JPanel {
 		}
 	}
 	
-	public void importujCzastki() {
-		
+	public void importujCzastki() throws IOException {
+		File selectedFile = null;
+		JFileChooser jfc = new JFileChooser();
+		int returnValue = jfc.showOpenDialog(null);
+  		if (returnValue == JFileChooser.APPROVE_OPTION) {
+  	    selectedFile=jfc.getSelectedFile();
+  	    int nieWczytane=0;
+  	    try (BufferedReader br = new BufferedReader(new FileReader(selectedFile))) {
+  	    	String line;
+  	    	while ((line = br.readLine()) != null) {
+  	    		//System.out.println(line);
+  	    		String[] parametry = line.split(" ");
+  	    		System.out.print(parametry[0]+"\n");
+  	    		if(parametry[0].equals("S")) // Wczytywanie czastki stacjonarnej
+  	    		{
+  	    			CzastkaStacjonarna cs = new CzastkaStacjonarna(Integer.parseInt(parametry[1]), Integer.parseInt(parametry[1]), Double.parseDouble(parametry[3]));
+  	    			obszarSymulacji.dodajCzastkeStacjonarna(cs);
+  	    		}
+  	    		else if(parametry[0].equals("F")) // Wczytywanie czastki swobodnej
+  	    		{
+  	    			CzastkaProbna cp = new CzastkaProbna(Integer.parseInt(parametry[1]), Integer.parseInt(parametry[1]), Double.parseDouble(parametry[3]), Double.parseDouble(parametry[4]), 0, 0, id);
+  	    			obszarSymulacji.dodajCzastkeProbna(cp);
+  	    			id++;
+  	    		}
+  	    		else
+  	    		{
+  	    			nieWczytane++;
+  	    		}
+  	    		
+  	    	}
+  	    }
+  	    if(nieWczytane!=0)
+  	    {
+  	    	JOptionPane.showMessageDialog (null, "Nie wczytano "+nieWczytane+" parametrów cz¹stek!");
+  	    }
+  	    else
+  	    {
+  	    	obszarSymulacji.repaint();
+  	    }
+  	    }
+  		else
+  		{
+  			JOptionPane.showMessageDialog (null, "Brak wybranego pliku!");
+  		}
 	}
 	
 	public void eksportujCzastki() {
