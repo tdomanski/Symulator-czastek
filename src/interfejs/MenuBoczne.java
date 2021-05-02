@@ -55,7 +55,7 @@ public class MenuBoczne extends JPanel {
 	private JButton eksportujCzastkiButton;
 	private JButton eksportujObrazButton;
 	private int id=0; //Numer czastki
-	private ObszarSymulacji obszarSymulacji;//Obszar symulacji, za kt�ry odpowiedzialne jest to menu
+	private ObszarSymulacji obszarSymulacji;//Obszar symulacji, za ktďż˝ry odpowiedzialne jest to menu
 	
 	public MenuBoczne() {//KONSTRUKTOR
 		this.setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
@@ -70,7 +70,7 @@ public class MenuBoczne extends JPanel {
 		top.setBackground(Color.white);
 		
 		
-		czastkaStacjonarnaButton = new JButton("Nowa cz�stka stacjonarna");
+		czastkaStacjonarnaButton = new JButton("Nowa cząstka stacjonarna");
 		ActionListener czastkaStacjonarnaButtonListener = event -> {
 			this.ustawWyborNowaCzastkaStacjonarna();
 			masaField.setText(null);
@@ -80,7 +80,7 @@ public class MenuBoczne extends JPanel {
 		top.add(czastkaStacjonarnaButton);
 		
 		
-		czastkaProbnaButton = new JButton("Nowa cz�stka pr�bna");
+		czastkaProbnaButton = new JButton("Nowa cząstka próbna");
 		ActionListener czastkaProbnaButtonListener = event -> {
 			this.ustawWyborNowaCzastkaProbna();
 			masaField.setText(null);
@@ -92,7 +92,7 @@ public class MenuBoczne extends JPanel {
 		
 		
 		
-		parametryNowejCzastkiLabel = new JLabel("Parametry nowej cz�stki");
+		parametryNowejCzastkiLabel = new JLabel("Parametry nowej cząstki");
 		parametryNowejCzastkiLabel.setPreferredSize(getPreferredSize());
 		top.add(parametryNowejCzastkiLabel);
 		
@@ -108,7 +108,7 @@ public class MenuBoczne extends JPanel {
 		ladunekField = new JTextField();
 		ladunekField.setEditable(false);
 		ladunekField.setBackground(Color.white);
-		ladunekInitialText = new TextPrompt("�adunek", ladunekField);
+		ladunekInitialText = new TextPrompt("ładunek", ladunekField);
 		ladunekInitialText.changeAlpha(128);
 		top.add(ladunekField);
 		
@@ -118,7 +118,7 @@ public class MenuBoczne extends JPanel {
 		
 		spacing1 = new JPanel();
 		spacing1.setBackground(Color.white);
-		dodajCzastkeButton = new JButton("Dodaj cz�stk�");
+		dodajCzastkeButton = new JButton("Dodaj cząstkę˝");
 		dodajCzastkeButton.addActionListener(event -> this.dodajCzastke());
 		spacing1.add(dodajCzastkeButton);
 		this.add(spacing1);
@@ -130,7 +130,7 @@ public class MenuBoczne extends JPanel {
 		center.setBackground(Color.white);
 		
 		
-		importujCzastkiButton = new JButton("Importuj cz�stki");
+		importujCzastkiButton = new JButton("Importuj cząstki");
 		importujCzastkiButton.addActionListener(event -> {
 			try {
 				this.importujCzastki();
@@ -141,7 +141,7 @@ public class MenuBoczne extends JPanel {
 		});
 		center.add(importujCzastkiButton);
 		
-		eksportujCzastkiButton = new JButton("Eksportuj cz�stki");
+		eksportujCzastkiButton = new JButton("Eksportuj cząstki");
 		eksportujCzastkiButton.addActionListener(event -> this.eksportujCzastki());
 		center.add(eksportujCzastkiButton);
 		
@@ -172,7 +172,7 @@ public class MenuBoczne extends JPanel {
 	public void ustawWyborNowaCzastkaStacjonarna() {
 		czastkaStacjonarnaSelected = true;
 		czastkaProbnaSelected = false;
-		parametryNowejCzastkiLabel.setText("<html>Parametry nowej cz�stki<br/> stacjonarnej<html>");
+		parametryNowejCzastkiLabel.setText("<html>Parametry nowej cząstki<br/> stacjonarnej<html>");
 		masaField.setEditable(false);
 		ladunekField.setEditable(true);
 	}
@@ -180,7 +180,7 @@ public class MenuBoczne extends JPanel {
 	public void ustawWyborNowaCzastkaProbna() {
 		czastkaProbnaSelected = true;
 		czastkaStacjonarnaSelected = false;
-		parametryNowejCzastkiLabel.setText("<html>Parametry nowej cz�stki<br/> pr�bnej<html>");
+		parametryNowejCzastkiLabel.setText("<html>Parametry nowej cząstki<br/> prďż˝bnej<html>");
 		masaField.setEditable(true);
 		ladunekField.setEditable(true);
 	}
@@ -198,11 +198,11 @@ public class MenuBoczne extends JPanel {
 					CzastkaStacjonarna cs = new CzastkaStacjonarna(randomX, randomY, Double.valueOf(ladunekField.getText()));
 					obszarSymulacji.dodajCzastkeStacjonarna(cs);
 				} catch (IllegalArgumentException e) {
-					JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz �adunek w postaci liczby rzeczywistej");
+					JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz łaadunek w postaci liczby rzeczywistej");
 				}
 			}
 			else
-				JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz �adunek w postaci liczby rzeczywistej");
+				JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz ładunek w postaci liczby rzeczywistej");
 		}
 		
 		else if (czastkaProbnaSelected == true) { // Dodawanie czastki probnej
@@ -216,17 +216,17 @@ public class MenuBoczne extends JPanel {
 						id++;
 					}
 					else
-						JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz mas� i �adunek w postaci liczb rzeczywistych (masa musi by� dodatnia)");
+						JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz masę i ładunek w postaci liczb rzeczywistych (masa musi być dodatnia)");
 				} catch (IllegalArgumentException e) {
-					JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz mas� i �adunek w postaci liczb rzeczywistych (masa musi by� dodatnia)");
+					JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz masę i ładunek w postaci liczb rzeczywistych (masa musi być dodatnia)");
 				}
 			}
 			else
-				JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz mas� i �adunek w postaci liczb rzeczywistych (masa musi by� dodatnia)");
+				JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz masę˝ i ładunek w postaci liczb rzeczywistych (masa musi być dodatnia)");
 		}
 	}
 	
-	public void importujCzastki() throws IOException {
+	public void importujCzastki() throws FileNotFoundException, IOException {
 		File selectedFile = null;
 		JFileChooser jfc = new JFileChooser();
 		int returnValue = jfc.showOpenDialog(null);
@@ -235,91 +235,55 @@ public class MenuBoczne extends JPanel {
 	  		{
 	  	  	    selectedFile=jfc.getSelectedFile();
 	  	  	    int nieWczytane=0;
+	  	  	    if(!selectedFile.canRead())
+	  	  	    {
+	  	  	    	JOptionPane.showMessageDialog (null, "Nie można wczytać pliku!");
+	  	  	    }
+	  	  	    else
+	  	  	    {
 	  	  	    try (BufferedReader br = new BufferedReader(new FileReader(selectedFile))) {
 	  	  	    	String line;
 	  	  	    	while ((line = br.readLine()) != null) {
-	  	  	    		//System.out.println(line);
 	  	  	    		String[] parametry = line.split(" ");
 	  	  	    		obszarSymulacji.setCzastkaStacjonarnaRadius(obszarSymulacji.getHeight()/50); // Skalowanie rozmiarow czastek do rozmiaru obszaru symulacji
 	  	  	    		obszarSymulacji.setCzastkaProbnaRadius(obszarSymulacji.getHeight()/100);
+	  	  	    		System.out.print(parametry[0]+"\n");
 	  	  	    		if(parametry[0].equals("S")) // Wczytywanie czastki stacjonarnej
 	  	  	    		{
-	  	  	    			CzastkaStacjonarna cs = new CzastkaStacjonarna(Integer.parseInt(parametry[1]), Integer.parseInt(parametry[2]), Double.parseDouble(parametry[3]));
+	  	  	    			CzastkaStacjonarna cs = new CzastkaStacjonarna(Integer.parseInt(parametry[1]), Integer.parseInt(parametry[1]), Double.parseDouble(parametry[3]));
 	  	  	    			obszarSymulacji.dodajCzastkeStacjonarna(cs);
-	  	  	    			//obszarSymulacji.repaint();
 	  	  	    		}
 	  	  	    		else if(parametry[0].equals("F")) // Wczytywanie czastki swobodnej
 	  	  	    		{
-	  	  	    			CzastkaProbna cp = new CzastkaProbna(Integer.parseInt(parametry[1]), Integer.parseInt(parametry[2]), Double.parseDouble(parametry[3]), Double.parseDouble(parametry[4]), 0, 0, id);
+	  	  	    			CzastkaProbna cp = new CzastkaProbna(Integer.parseInt(parametry[1]), Integer.parseInt(parametry[1]), Double.parseDouble(parametry[3]), Double.parseDouble(parametry[4]), 0, 0, id);
 	  	  	    			obszarSymulacji.dodajCzastkeProbna(cp);
 	  	  	    			id++;
-	  	  	    			//obszarSymulacji.repaint();
 	  	  	    		}
 	  	  	    		else
 	  	  	    		{
 	  	  	    			nieWczytane++;
 	  	  	    		}
-	  	  	    		
+
 	  	  	    	}
 	  	  	    }
 	  	  	    if(nieWczytane!=0)
 	  	  	    {
-	  	  	    	JOptionPane.showMessageDialog (null, "Nie wczytano "+nieWczytane+" parametr�w cz�stek!");
+	  	  	    	JOptionPane.showMessageDialog (null, "Nie wczytano "+nieWczytane+" parametrów cząstek!");
 	  	  	    }
-	  	  	    /*else
-	  	  	    {
-	  	  	    	obszarSymulacji.repaint();
-	  	  	    }*/
-	  		}
+	  		
+	  	  	}
 
-	  	/*selectedFile=jfc.getSelectedFile();
-  	    int nieWczytane=0;
-  	    try (BufferedReader br = new BufferedReader(new FileReader(selectedFile))) {
-  	    	String line;
-  	    	while ((line = br.readLine()) != null) {
-  	    		//System.out.println(line);
-  	    		String[] parametry = line.split(" ");
-  	    		System.out.print(parametry[0]+"\n");
-  	    		if(parametry[0].equals("S")) // Wczytywanie czastki stacjonarnej
-  	    		{
-  	    			CzastkaStacjonarna cs = new CzastkaStacjonarna(Integer.parseInt(parametry[1]), Integer.parseInt(parametry[2]), Double.parseDouble(parametry[3]));
-  	    			obszarSymulacji.dodajCzastkeStacjonarna(cs);
-  	    		}
-  	    		else if(parametry[0].equals("F")) // Wczytywanie czastki swobodnej
-  	    		{
-  	    			CzastkaProbna cp = new CzastkaProbna(Integer.parseInt(parametry[1]), Integer.parseInt(parametry[2]), Double.parseDouble(parametry[3]), Double.parseDouble(parametry[4]), 0, 0, id);
-  	    			obszarSymulacji.dodajCzastkeProbna(cp);
-  	    			id++;
-  	    		}
-  	    		else
-  	    		{
-  	    			nieWczytane++;
-  	    		}
-  	    		
-  	    	}
-  	    }
-  	    if(nieWczytane!=0)
-  	    {
-  	    	JOptionPane.showMessageDialog (null, "Nie wczytano "+nieWczytane+" parametr�w cz�stek!");
-  	    }
-  	    else
-  	    {
-  	    	obszarSymulacji.repaint();
-  	    }*/
-  		}
-  		else
-  		{
-  			JOptionPane.showMessageDialog (null, "Brak wybranego pliku!");
-  		}
+
+	  		}
 	}
-	
+}
 	public void eksportujCzastki() {
 		Czastki czastki = obszarSymulacji.getCz(); 
 		int sizeProbne = czastki.getIloscCzProbnych();
 		int sizeStacjonarne = czastki.getIloscCzStacjon();
 		if(sizeProbne==0&&sizeStacjonarne==0)
 		{
-			JOptionPane.showMessageDialog (null, "Brak cz�stek do zapisania z obszaru symulacji!");
+			JOptionPane.showMessageDialog (null, "Brak cząstek do zapisania z obszaru symulacji!");
 		}
 		else
 		{
@@ -383,7 +347,7 @@ public class MenuBoczne extends JPanel {
 			}
 			else
 			{
-				JOptionPane.showMessageDialog (null, "Plik nie zosta� zapisany - nie wybrano miejsca docelowego!");
+				JOptionPane.showMessageDialog (null, "Plik nie został zapisany - nie wybrano miejsca docelowego!");
 			}
 		}
 		
