@@ -2,6 +2,7 @@ package matematyczna;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 
 import czastki.parametry.CzastkaProbna;
 import czastki.parametry.Czastki;
@@ -18,7 +19,7 @@ public class SymulacjaCzastki implements Runnable {
 	private double dy=0;
 	private double dvx = 0;
 	private double dvy = 0;
-	private boolean simGoing=true;
+	private boolean onSymulacja = false;
 	public SymulacjaCzastki(CzastkaProbna cz) {
 		id=cz.getId();
 		this.cz=cz;
@@ -79,9 +80,15 @@ public class SymulacjaCzastki implements Runnable {
 		this.dt=dt;
 	}
 	
+	
+	
+	public void setOnSymulacja(boolean onSymulacja) {
+		this.onSymulacja = onSymulacja;
+	}
+
 	@Override
 	public void run() {
-		while(true)
+		while(onSymulacja)
 		{
 			Symulacja();
 			cz.setX(nowyX());
@@ -98,4 +105,5 @@ public class SymulacjaCzastki implements Runnable {
 	public void ustawObszarSymulacji(ObszarSymulacji os) { // przypisanie obszaru symulacji, za ktory odpowiedzialne jest to menu
 		this.obszarSymulacji = os;
 	}
+	
 }

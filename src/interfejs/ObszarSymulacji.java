@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -52,7 +53,6 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 	private String aktualnyContent;//informacja, czy aktualnie wyœwietlane jest pole wektorowe, czy trajektorie cz¹stek
 	private ExecutorService exec;
 	private final int ARR_SIZE = 3;
-	
 	
 	public ObszarSymulacji() {
 		this.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(10, 10, 10, 10),  new EtchedBorder(Color.black,Color.black)));
@@ -218,21 +218,23 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 	{
 		exec = Executors.newFixedThreadPool(symulacje.size());
 		for (SymulacjaCzastki sym : symulacje) {
+			sym.setOnSymulacja(true);
 			exec.execute(sym);
 		}
+		
 	}
+	
+	
 	
 	public void wylaczExecutor()
 	{
-//		awaitTerminationAfterShutdown(exec)
 		exec.shutdown();
-		try {
-			exec.awaitTermination(1, null);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		for (SymulacjaCzastki sym : symulacje) {
+			sym.setOnSymulacja(false);
 		}
 	}
+	
+	
 	
 	public void repaintObszarSymulacji() 
 	{
