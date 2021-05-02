@@ -305,4 +305,9 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 			}
 		}
 	}
+
+	public Czastki getCz() {
+		return cz;
+	}
+	
 }

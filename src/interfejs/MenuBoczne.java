@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
 
@@ -21,6 +22,7 @@ import javax.swing.filechooser.FileSystemView;
 
 import czastki.parametry.CzastkaProbna;
 import czastki.parametry.CzastkaStacjonarna;
+import czastki.parametry.Czastki;
 
 public class MenuBoczne extends JPanel {
 	
@@ -208,6 +210,79 @@ public class MenuBoczne extends JPanel {
 	}
 	
 	public void eksportujCzastki() {
+		Czastki czastki = obszarSymulacji.getCz(); 
+		int sizeProbne = czastki.getIloscCzProbnych();
+		int sizeStacjonarne = czastki.getIloscCzStacjon();
+		if(sizeProbne==0||sizeStacjonarne==0)
+		{
+			JOptionPane.showMessageDialog (null, "Brak cz¹stek do zapisania z obszaru symulacji!");
+		}
+		else
+		{
+			JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+			jfc.setFileFilter(new FileNameExtensionFilter("Text files", "txt"));
+			File selectedFile = null;
+			int returnValue = jfc.showSaveDialog(null);
+			if (returnValue == JFileChooser.APPROVE_OPTION) {
+	            selectedFile = jfc.getSelectedFile();
+	            if (!jfc.getSelectedFile().getAbsolutePath().endsWith(".txt"))
+	            	selectedFile = new File(jfc.getSelectedFile() + ".txt");
+	            System.out.println(selectedFile.getAbsolutePath());
+	        }
+			if (selectedFile!=null) {
+				FileWriter fw = null;
+				String line = null;
+						try {
+						fw = new FileWriter(selectedFile);
+						//Stacjonarne - wczytywanie do pliku
+						for(int i=0;i<sizeStacjonarne;i++) // Format: S X Y Ladunek
+						{
+							if(i!=sizeStacjonarne-1)
+							{
+								line ="S "+czastki.getCzastkeStacjonarna(i).getX()+" "+czastki.getCzastkeStacjonarna(i).getY()+" "+czastki.getCzastkeStacjonarna(i).getLadunek()+"\n";		
+							}
+							else
+							{
+								line ="S "+czastki.getCzastkeStacjonarna(i).getX()+" "+czastki.getCzastkeStacjonarna(i).getY()+" "+czastki.getCzastkeStacjonarna(i).getLadunek();
+							}
+							fw.write(line);		
+						}
+						//Probne - wczytywanie do pliku
+						for(int i=0;i<sizeProbne;i++)// Format: F X Y Masa Ladunek
+						{
+							if(i==0)
+							{
+								fw.write("\n");
+							}
+							if(i!=sizeProbne-1)
+							{
+								line ="F "+czastki.getCzastkeProbna(i).getX()+" "+czastki.getCzastkeProbna(i).getY()+" "+czastki.getCzastkeProbna(i).getMasa()+" "+czastki.getCzastkeProbna(i).getLadunek()+"\n";
+								fw.write(line);
+							}
+							else
+							{
+								line ="F "+czastki.getCzastkeProbna(i).getX()+" "+czastki.getCzastkeProbna(i).getY()+" "+czastki.getCzastkeProbna(i).getMasa()+" "+czastki.getCzastkeProbna(i).getLadunek();
+								fw.write(line);
+							}
+						}
+						fw.flush();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						try {
+							fw.close();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					
+			}
+			else
+			{
+				JOptionPane.showMessageDialog (null, "Plik nie zosta³ zapisany - nie wybrano miejsca docelowego!");
+			}
+		}
 		
 	}
 	
