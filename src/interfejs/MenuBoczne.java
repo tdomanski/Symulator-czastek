@@ -274,7 +274,7 @@ public class MenuBoczne extends JPanel {
 		Czastki czastki = obszarSymulacji.getCz(); 
 		int sizeProbne = czastki.getIloscCzProbnych();
 		int sizeStacjonarne = czastki.getIloscCzStacjon();
-		if(sizeProbne==0||sizeStacjonarne==0)
+		if(sizeProbne==0&&sizeStacjonarne==0)
 		{
 			JOptionPane.showMessageDialog (null, "Brak cz¹stek do zapisania z obszaru symulacji!");
 		}
