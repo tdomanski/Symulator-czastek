@@ -55,7 +55,7 @@ public class MenuBoczne extends JPanel {
 	private JButton eksportujCzastkiButton;
 	private JButton eksportujObrazButton;
 	private int id=0; //Numer czastki
-	private ObszarSymulacji obszarSymulacji;//Obszar symulacji, za który odpowiedzialne jest to menu
+	private ObszarSymulacji obszarSymulacji;//Obszar symulacji, za ktï¿½ry odpowiedzialne jest to menu
 	
 	public MenuBoczne() {//KONSTRUKTOR
 		this.setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
@@ -70,7 +70,7 @@ public class MenuBoczne extends JPanel {
 		top.setBackground(Color.white);
 		
 		
-		czastkaStacjonarnaButton = new JButton("Nowa cz¹stka stacjonarna");
+		czastkaStacjonarnaButton = new JButton("Nowa czï¿½stka stacjonarna");
 		ActionListener czastkaStacjonarnaButtonListener = event -> {
 			this.ustawWyborNowaCzastkaStacjonarna();
 			masaField.setText(null);
@@ -80,7 +80,7 @@ public class MenuBoczne extends JPanel {
 		top.add(czastkaStacjonarnaButton);
 		
 		
-		czastkaProbnaButton = new JButton("Nowa cz¹stka próbna");
+		czastkaProbnaButton = new JButton("Nowa czï¿½stka prï¿½bna");
 		ActionListener czastkaProbnaButtonListener = event -> {
 			this.ustawWyborNowaCzastkaProbna();
 			masaField.setText(null);
@@ -92,7 +92,7 @@ public class MenuBoczne extends JPanel {
 		
 		
 		
-		parametryNowejCzastkiLabel = new JLabel("Parametry nowej cz¹stki");
+		parametryNowejCzastkiLabel = new JLabel("Parametry nowej czï¿½stki");
 		parametryNowejCzastkiLabel.setPreferredSize(getPreferredSize());
 		top.add(parametryNowejCzastkiLabel);
 		
@@ -108,7 +108,7 @@ public class MenuBoczne extends JPanel {
 		ladunekField = new JTextField();
 		ladunekField.setEditable(false);
 		ladunekField.setBackground(Color.white);
-		ladunekInitialText = new TextPrompt("³adunek", ladunekField);
+		ladunekInitialText = new TextPrompt("ï¿½adunek", ladunekField);
 		ladunekInitialText.changeAlpha(128);
 		top.add(ladunekField);
 		
@@ -118,7 +118,7 @@ public class MenuBoczne extends JPanel {
 		
 		spacing1 = new JPanel();
 		spacing1.setBackground(Color.white);
-		dodajCzastkeButton = new JButton("Dodaj cz¹stkê");
+		dodajCzastkeButton = new JButton("Dodaj czï¿½stkï¿½");
 		dodajCzastkeButton.addActionListener(event -> this.dodajCzastke());
 		spacing1.add(dodajCzastkeButton);
 		this.add(spacing1);
@@ -130,7 +130,7 @@ public class MenuBoczne extends JPanel {
 		center.setBackground(Color.white);
 		
 		
-		importujCzastkiButton = new JButton("Importuj cz¹stki");
+		importujCzastkiButton = new JButton("Importuj czï¿½stki");
 		importujCzastkiButton.addActionListener(event -> {
 			try {
 				this.importujCzastki();
@@ -141,7 +141,7 @@ public class MenuBoczne extends JPanel {
 		});
 		center.add(importujCzastkiButton);
 		
-		eksportujCzastkiButton = new JButton("Eksportuj cz¹stki");
+		eksportujCzastkiButton = new JButton("Eksportuj czï¿½stki");
 		eksportujCzastkiButton.addActionListener(event -> this.eksportujCzastki());
 		center.add(eksportujCzastkiButton);
 		
@@ -172,7 +172,7 @@ public class MenuBoczne extends JPanel {
 	public void ustawWyborNowaCzastkaStacjonarna() {
 		czastkaStacjonarnaSelected = true;
 		czastkaProbnaSelected = false;
-		parametryNowejCzastkiLabel.setText("<html>Parametry nowej cz¹stki<br/> stacjonarnej<html>");
+		parametryNowejCzastkiLabel.setText("<html>Parametry nowej czï¿½stki<br/> stacjonarnej<html>");
 		masaField.setEditable(false);
 		ladunekField.setEditable(true);
 	}
@@ -180,7 +180,7 @@ public class MenuBoczne extends JPanel {
 	public void ustawWyborNowaCzastkaProbna() {
 		czastkaProbnaSelected = true;
 		czastkaStacjonarnaSelected = false;
-		parametryNowejCzastkiLabel.setText("<html>Parametry nowej cz¹stki<br/> próbnej<html>");
+		parametryNowejCzastkiLabel.setText("<html>Parametry nowej czï¿½stki<br/> prï¿½bnej<html>");
 		masaField.setEditable(true);
 		ladunekField.setEditable(true);
 	}
@@ -198,11 +198,11 @@ public class MenuBoczne extends JPanel {
 					CzastkaStacjonarna cs = new CzastkaStacjonarna(randomX, randomY, Double.valueOf(ladunekField.getText()));
 					obszarSymulacji.dodajCzastkeStacjonarna(cs);
 				} catch (IllegalArgumentException e) {
-					JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz ³adunek w postaci liczby rzeczywistej");
+					JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz ï¿½adunek w postaci liczby rzeczywistej");
 				}
 			}
 			else
-				JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz ³adunek w postaci liczby rzeczywistej");
+				JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz ï¿½adunek w postaci liczby rzeczywistej");
 		}
 		
 		else if (czastkaProbnaSelected == true) { // Dodawanie czastki probnej
@@ -216,13 +216,13 @@ public class MenuBoczne extends JPanel {
 						id++;
 					}
 					else
-						JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz masê i ³adunek w postaci liczb rzeczywistych (masa musi byæ dodatnia)");
+						JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz masï¿½ i ï¿½adunek w postaci liczb rzeczywistych (masa musi byï¿½ dodatnia)");
 				} catch (IllegalArgumentException e) {
-					JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz masê i ³adunek w postaci liczb rzeczywistych (masa musi byæ dodatnia)");
+					JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz masï¿½ i ï¿½adunek w postaci liczb rzeczywistych (masa musi byï¿½ dodatnia)");
 				}
 			}
 			else
-				JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz masê i ³adunek w postaci liczb rzeczywistych (masa musi byæ dodatnia)");
+				JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz masï¿½ i ï¿½adunek w postaci liczb rzeczywistych (masa musi byï¿½ dodatnia)");
 		}
 	}
 	
@@ -264,15 +264,15 @@ public class MenuBoczne extends JPanel {
 	  	  	    }
 	  	  	    if(nieWczytane!=0)
 	  	  	    {
-	  	  	    	JOptionPane.showMessageDialog (null, "Nie wczytano "+nieWczytane+" parametrów cz¹stek!");
+	  	  	    	JOptionPane.showMessageDialog (null, "Nie wczytano "+nieWczytane+" parametrï¿½w czï¿½stek!");
 	  	  	    }
-	  	  	    else
+	  	  	    /*else
 	  	  	    {
 	  	  	    	obszarSymulacji.repaint();
-	  	  	    }
+	  	  	    }*/
 	  		}
 
-  	    selectedFile=jfc.getSelectedFile();
+	  	/*selectedFile=jfc.getSelectedFile();
   	    int nieWczytane=0;
   	    try (BufferedReader br = new BufferedReader(new FileReader(selectedFile))) {
   	    	String line;
@@ -300,12 +300,12 @@ public class MenuBoczne extends JPanel {
   	    }
   	    if(nieWczytane!=0)
   	    {
-  	    	JOptionPane.showMessageDialog (null, "Nie wczytano "+nieWczytane+" parametrów cz¹stek!");
+  	    	JOptionPane.showMessageDialog (null, "Nie wczytano "+nieWczytane+" parametrï¿½w czï¿½stek!");
   	    }
   	    else
   	    {
   	    	obszarSymulacji.repaint();
-  	    }
+  	    }*/
   		}
   		else
   		{
@@ -319,7 +319,7 @@ public class MenuBoczne extends JPanel {
 		int sizeStacjonarne = czastki.getIloscCzStacjon();
 		if(sizeProbne==0&&sizeStacjonarne==0)
 		{
-			JOptionPane.showMessageDialog (null, "Brak cz¹stek do zapisania z obszaru symulacji!");
+			JOptionPane.showMessageDialog (null, "Brak czï¿½stek do zapisania z obszaru symulacji!");
 		}
 		else
 		{
@@ -383,7 +383,7 @@ public class MenuBoczne extends JPanel {
 			}
 			else
 			{
-				JOptionPane.showMessageDialog (null, "Plik nie zosta³ zapisany - nie wybrano miejsca docelowego!");
+				JOptionPane.showMessageDialog (null, "Plik nie zostaï¿½ zapisany - nie wybrano miejsca docelowego!");
 			}
 		}
 		

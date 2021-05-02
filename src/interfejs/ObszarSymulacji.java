@@ -202,7 +202,6 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 		czastkiStacjonarne.add(cs);
 		cz.addCzastkaStacjonarna(cs);
 		repaint();
-		
 	}
 	
 	public void dodajCzastkeProbna(CzastkaProbna cp) {
@@ -313,12 +312,26 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 	
 	public void obliczINarysujPoleElektryczne(Graphics g) {
 		double Ex, Ey;
-		for (int xi = 20; xi < this.getWidth() - 20; xi += 20) {
-			for (int yi = 20; yi < this.getHeight() - 20; yi += 20) {
-				Ex = this.obliczExWPunkcie(xi, yi);
-				Ey = this.obliczEyWPunkcie(xi, yi);
-				double theta = Math.atan2(Ey, Ex);
-				this.drawArrow(g, xi, yi, theta);
+		double nonZeroCharges = 0;
+		for (CzastkaStacjonarna cs : czastkiStacjonarne) {
+			if (cs.getLadunek() != 0)
+				nonZeroCharges += 1;
+		}
+		if (nonZeroCharges > 0) {
+			for (int xi = 20; xi < this.getWidth() - 20; xi += 20) {
+				for (int yi = 20; yi < this.getHeight() - 20; yi += 20) {
+					Ex = this.obliczExWPunkcie(xi, yi);
+					Ey = this.obliczEyWPunkcie(xi, yi);
+					double theta = Math.atan2(Ey, Ex);
+					this.drawArrow(g, xi, yi, theta);
+				}
+			}
+		}
+		else {
+			for (int xi = 20; xi < this.getWidth() - 20; xi += 20) {
+				for (int yi = 20; yi < this.getHeight() - 20; yi += 20) {
+					g.fillOval(xi, yi, 2, 2);
+				}
 			}
 		}
 	}

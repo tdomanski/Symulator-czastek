@@ -18,6 +18,7 @@ public class CzastkaStacjonarna {
 	private double ladunek;
 	public final BufferedImage plusChargeImage = loadBufferedImage("/pluscharge.png");
 	public final BufferedImage minusChargeImage = loadBufferedImage("/minuscharge.png");
+	public final BufferedImage zeroChargeImage = loadBufferedImage("/zerocharge.png");
 	
 	public CzastkaStacjonarna(int x, int y, double q) {
 		this.x = x;
@@ -68,5 +69,7 @@ public class CzastkaStacjonarna {
 		}
 		else if (this.ladunek < 0)
 			g.drawImage(minusChargeImage, x - width/2, y - height/2, width, height, null);
+		else if (this.ladunek == 0)
+			g.drawImage(zeroChargeImage, x - width/2, y - height/2, width, height, null);
 	}
 }
