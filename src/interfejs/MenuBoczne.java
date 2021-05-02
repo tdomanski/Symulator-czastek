@@ -240,15 +240,15 @@ public class MenuBoczne extends JPanel {
 	  	  	    	while ((line = br.readLine()) != null) {
 	  	  	    		//System.out.println(line);
 	  	  	    		String[] parametry = line.split(" ");
-	  	  	    		System.out.print(parametry[0]+"\n");
+	  	  	    		//System.out.print(parametry[0]+"\n");
 	  	  	    		if(parametry[0].equals("S")) // Wczytywanie czastki stacjonarnej
 	  	  	    		{
-	  	  	    			CzastkaStacjonarna cs = new CzastkaStacjonarna(Integer.parseInt(parametry[1]), Integer.parseInt(parametry[1]), Double.parseDouble(parametry[3]));
+	  	  	    			CzastkaStacjonarna cs = new CzastkaStacjonarna(Integer.parseInt(parametry[1]), Integer.parseInt(parametry[2]), Double.parseDouble(parametry[3]));
 	  	  	    			obszarSymulacji.dodajCzastkeStacjonarna(cs);
 	  	  	    		}
 	  	  	    		else if(parametry[0].equals("F")) // Wczytywanie czastki swobodnej
 	  	  	    		{
-	  	  	    			CzastkaProbna cp = new CzastkaProbna(Integer.parseInt(parametry[1]), Integer.parseInt(parametry[1]), Double.parseDouble(parametry[3]), Double.parseDouble(parametry[4]), 0, 0, id);
+	  	  	    			CzastkaProbna cp = new CzastkaProbna(Integer.parseInt(parametry[1]), Integer.parseInt(parametry[2]), Double.parseDouble(parametry[3]), Double.parseDouble(parametry[4]), 0, 0, id);
 	  	  	    			obszarSymulacji.dodajCzastkeProbna(cp);
 	  	  	    			id++;
 	  	  	    		}
@@ -263,13 +263,13 @@ public class MenuBoczne extends JPanel {
 	  	  	    {
 	  	  	    	JOptionPane.showMessageDialog (null, "Nie wczytano "+nieWczytane+" parametrów cz¹stek!");
 	  	  	    }
-	  	  	    else
+	  	  	    /*else
 	  	  	    {
 	  	  	    	obszarSymulacji.repaint();
-	  	  	    }
+	  	  	    }*/
 	  		}
 
-  	    selectedFile=jfc.getSelectedFile();
+	  	/*selectedFile=jfc.getSelectedFile();
   	    int nieWczytane=0;
   	    try (BufferedReader br = new BufferedReader(new FileReader(selectedFile))) {
   	    	String line;
@@ -302,7 +302,7 @@ public class MenuBoczne extends JPanel {
   	    else
   	    {
   	    	obszarSymulacji.repaint();
-  	    }
+  	    }*/
   		}
   		else
   		{

@@ -93,7 +93,7 @@ public class SymulacjaCzastki implements Runnable {
 			cz.setY(nowyY());
 			obszarSymulacji.repaint();
 			try {
-				Thread.sleep(150);
+				Thread.sleep(35); // 150 -> 35 aby bylo bardziej plynnie
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

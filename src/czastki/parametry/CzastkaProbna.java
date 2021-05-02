@@ -24,6 +24,7 @@ public class CzastkaProbna {
 	private SymulacjaCzastki sym;
 	public final BufferedImage plusChargeImage = loadBufferedImage("/pluscharge.png");
 	public final BufferedImage minusChargeImage = loadBufferedImage("/minuscharge.png");
+	public final BufferedImage zeroChargeImage = loadBufferedImage("/zerocharge.png");
 	
 	public CzastkaProbna(int x, int y, double m, double q, double vx, double vy, int id) {
 		this.x = x;
@@ -131,6 +132,8 @@ public class CzastkaProbna {
 		}
 		else if (this.ladunek < 0)
 			g.drawImage(minusChargeImage, x - width/2, y - height/2, width, height, null);
+		else if (this.ladunek == 0)
+			g.drawImage(zeroChargeImage, x - width/2, y - height/2, width, height, null);
 	}
 
 }
