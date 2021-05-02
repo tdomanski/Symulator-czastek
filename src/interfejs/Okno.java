@@ -1,6 +1,7 @@
 package interfejs;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GraphicsConfiguration;
 import java.awt.HeadlessException;
 import java.awt.image.BufferedImage;
@@ -23,8 +24,8 @@ public class Okno extends JFrame {
 	public Okno()
 	{
 		layout = new BorderLayout();
-		layout.setHgap(4);
-		layout.setVgap(4);
+		//layout.setHgap(4);
+		//layout.setVgap(4);
 		this.setLayout(layout);
 		menuGorne = new MenuGorne();
 		menuBoczne = new MenuBoczne();
@@ -34,7 +35,7 @@ public class Okno extends JFrame {
 		this.add(menuGorne,BorderLayout.PAGE_START);
 		this.add(menuBoczne,BorderLayout.LINE_END);
 		this.add(obszarSymulacji,BorderLayout.CENTER);
-		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		//this.setSize(600, 600);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setVisible(true);

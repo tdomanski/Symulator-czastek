@@ -1,5 +1,6 @@
 package interfejs;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
@@ -50,15 +51,14 @@ public class MenuBoczne extends JPanel {
 	
 	public MenuBoczne() {//KONSTRUKTOR
 		GridLayout layout1 = new GridLayout(5,1);
-		layout1.setHgap(2);
-		layout1.setVgap(2);
+		//layout1.setHgap(2);
+		//layout1.setVgap(2);
 		GridLayout layout2 = new GridLayout(5,1);
 		layout2.setHgap(1);
 		layout2.setVgap(1);
-		this.setLayout(layout1);
+		this.setLayout(layout1);		
 		top = new JPanel(layout2);
-		
-		
+		top.setBackground(Color.white);
 		
 		
 		czastkaStacjonarnaButton = new JButton("Nowa cz¹stka stacjonarna");
@@ -92,11 +92,13 @@ public class MenuBoczne extends JPanel {
 		
 		masaField = new JTextField();
 		masaField.setEditable(false);
+		masaField.setBackground(Color.white);
 		masaInitialText = new TextPrompt("masa", masaField);
 		masaInitialText.changeAlpha(128);
 		top.add(masaField);
 		ladunekField = new JTextField();
 		ladunekField.setEditable(false);
+		ladunekField.setBackground(Color.white);
 		ladunekInitialText = new TextPrompt("³adunek", ladunekField);
 		ladunekInitialText.changeAlpha(128);
 		top.add(ladunekField);
@@ -106,6 +108,7 @@ public class MenuBoczne extends JPanel {
 		
 		
 		spacing1 = new JPanel();
+		spacing1.setBackground(Color.white);
 		dodajCzastkeButton = new JButton("Dodaj cz¹stkê");
 		dodajCzastkeButton.addActionListener(event -> this.dodajCzastke());
 		spacing1.add(dodajCzastkeButton);
@@ -115,6 +118,7 @@ public class MenuBoczne extends JPanel {
 		layout3.setHgap(1);
 		layout3.setVgap(1);
 		center = new JPanel (layout3);
+		center.setBackground(Color.white);
 		
 		
 		importujCzastkiButton = new JButton("Importuj cz¹stki");
@@ -132,12 +136,14 @@ public class MenuBoczne extends JPanel {
 		
 		
 		spacing2 = new JPanel();
+		spacing2.setBackground(Color.white);
 		this.add(spacing2);
 		
 		
 		
 		
 		bottom = new JPanel(new GridLayout(6,1));
+		bottom.setBackground(Color.white);
 		
 		
 		eksportujObrazButton = new JButton("Eksportuj Obraz");

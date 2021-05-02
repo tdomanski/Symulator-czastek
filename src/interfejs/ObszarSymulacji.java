@@ -56,6 +56,7 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 	
 	public ObszarSymulacji() {
 		this.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(10, 10, 10, 10),  new EtchedBorder(Color.black,Color.black)));
+		this.setBackground(Color.white);
 		aktualnyContent = "Pole";//Domyslnie ustawiamy pokazywanie pola wektorowego
 		draggedCzastka = null;
 		this.addMouseListener(this);
@@ -82,7 +83,10 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-
+		
+		if (aktualnyContent == "Pole" && czastkiStacjonarne.isEmpty() == false)
+			this.obliczINarysujPoleElektryczne(g);
+		
 		for (CzastkaStacjonarna cs : czastkiStacjonarne) {
 			cs.paint(g, 2 * czastkaStacjonarnaRadius, 2 *czastkaStacjonarnaRadius);
 		}
@@ -90,8 +94,6 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 		for (CzastkaProbna cp : czastkiProbne) {
 			cp.paint(g, 2 *czastkaProbnaRadius, 2 *czastkaProbnaRadius);
 		}
-		if (aktualnyContent == "Pole" && czastkiStacjonarne.isEmpty() == false)
-			this.obliczINarysujPoleElektryczne(g);
 	}
 	
 	public void mousePressed(MouseEvent e) {

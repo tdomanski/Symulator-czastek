@@ -1,5 +1,6 @@
 package interfejs;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
@@ -17,7 +18,7 @@ public class MenuGorne extends JPanel {
 	
 	public MenuGorne() {//KONSTRUKTOR
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
-		
+		this.setBackground(Color.white);
 		uruchomButton = new JButton("Uruchom");
 		uruchomButton.setToolTipText("Uruchom symulacjê");
 		uruchomButton.addActionListener(event -> this.uruchomSymulacje());
