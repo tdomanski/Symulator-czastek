@@ -208,6 +208,7 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 		czastkiProbne.add(cp);
 		cz.addCzastkaProbna(cp);
 		symulacje.add(cp.getSym());
+		cp.getSym().ustawObszarSymulacji(this);
 		symulacje.get(symulacje.size()-1).setCzastki(cz);
 		symulacje.get(symulacje.size()-1).setdt(0.001);
 		repaint();

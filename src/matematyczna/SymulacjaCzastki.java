@@ -5,8 +5,10 @@ import java.util.List;
 
 import czastki.parametry.CzastkaProbna;
 import czastki.parametry.Czastki;
+import interfejs.ObszarSymulacji;
 
 public class SymulacjaCzastki implements Runnable {
+	private ObszarSymulacji obszarSymulacji;
 	private Obliczenia oblicz;
 	private CzastkaProbna cz;
 	private Czastki czastki;
@@ -27,6 +29,7 @@ public class SymulacjaCzastki implements Runnable {
 	{
 		double sumaEx=0;
 		double sumaEy=0;
+		/*
 		for(int j=0;j<czastki.getIloscCzProbnych()-1;j++)
 		{
 			if(j!=id)
@@ -35,11 +38,14 @@ public class SymulacjaCzastki implements Runnable {
 				sumaEy+=oblicz.czastkaEy(czastki.getCzastkeProbna(j).getX(), czastki.getCzastkeProbna(j).getY(),czastki.getCzastkeProbna(id).getX() , czastki.getCzastkeProbna(id).getY(), czastki.getCzastkeProbna(j).getLadunek());
 			}
 		}
-		for(int i=0;i<czastki.getIloscCzStacjon()-1;i++)
+		*/
+		for(int i=0;i<czastki.getIloscCzStacjon();i++)
 		{
-				sumaEx+=oblicz.czastkaEx(czastki.getCzastkeStacjonarna(i).getX(), czastki.getCzastkeStacjonarna(i).getY(),czastki.getCzastkeStacjonarna(id).getX() ,czastki.getCzastkeStacjonarna(id).getY(), czastki.getCzastkeStacjonarna(i).getLadunek());
-				sumaEy+=oblicz.czastkaEy(czastki.getCzastkeStacjonarna(i).getX(), czastki.getCzastkeStacjonarna(i).getY(),czastki.getCzastkeStacjonarna(id).getX() ,czastki.getCzastkeStacjonarna(id).getY(), czastki.getCzastkeStacjonarna(i).getLadunek());
+				sumaEx+=oblicz.czastkaEx(czastki.getCzastkeStacjonarna(i).getX(), czastki.getCzastkeStacjonarna(i).getY(),czastki.getCzastkeProbna(id).getX() ,czastki.getCzastkeProbna(id).getY(), czastki.getCzastkeStacjonarna(i).getLadunek());
+				sumaEy+=oblicz.czastkaEy(czastki.getCzastkeStacjonarna(i).getX(), czastki.getCzastkeStacjonarna(i).getY(),czastki.getCzastkeProbna(id).getX() ,czastki.getCzastkeProbna(id).getY(), czastki.getCzastkeStacjonarna(i).getLadunek());
 		}
+		System.out.println("sumaEx: " + sumaEx);
+		System.out.println("iloscCzStacjonarnych: " + czastki.getIloscCzStacjon());
 		double masa = cz.getMasa();
 		double q = cz.getLadunek();
 		dvx = q/masa*sumaEx*dt;
@@ -80,11 +86,16 @@ public class SymulacjaCzastki implements Runnable {
 			Symulacja();
 			cz.setX(nowyX());
 			cz.setY(nowyY());
+			obszarSymulacji.repaint();
 			try {
 				Thread.sleep(150);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public void ustawObszarSymulacji(ObszarSymulacji os) { // przypisanie obszaru symulacji, za ktory odpowiedzialne jest to menu
+		this.obszarSymulacji = os;
 	}
 }
