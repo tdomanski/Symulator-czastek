@@ -227,6 +227,8 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 	}	
 	public void usunWszystkieCzastki()
 	{
+		czastkiStacjonarne.clear();
+		czastkiProbne.clear();
 		cz.clearCzastkiProbne();
 		cz.clearCzastkiStacjonarne();
 		repaint();
