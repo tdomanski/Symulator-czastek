@@ -24,6 +24,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
@@ -56,6 +58,7 @@ public class MenuBoczne extends JPanel {
 	private ObszarSymulacji obszarSymulacji;//Obszar symulacji, za który odpowiedzialne jest to menu
 	
 	public MenuBoczne() {//KONSTRUKTOR
+		this.setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
 		GridLayout layout1 = new GridLayout(5,1);
 		//layout1.setHgap(2);
 		//layout1.setVgap(2);
