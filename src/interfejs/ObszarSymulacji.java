@@ -55,6 +55,7 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 	private ExecutorService exec;
 	private final int ARR_SIZE = 3;
 	private boolean onSymulacja = false;
+	private boolean reset=false;
 	public ObszarSymulacji() {
 		this.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(10, 10, 10, 10),  new EtchedBorder(Color.black,Color.black)));
 		this.setBackground(Color.white);
@@ -83,17 +84,28 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 ////    }
 	
 	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		
-		if (aktualnyContent == "Pole" && czastkiStacjonarne.isEmpty() == false)
-			this.obliczINarysujPoleElektryczne(g);
-		
-		for (CzastkaStacjonarna cs : czastkiStacjonarne) {
-			cs.paint(g, 2 * czastkaStacjonarnaRadius, 2 *czastkaStacjonarnaRadius);
+		if(reset==false)
+		{
+			super.paintComponent(g);
+			
+			if (aktualnyContent == "Pole" && czastkiStacjonarne.isEmpty() == false)
+				this.obliczINarysujPoleElektryczne(g);
+			
+			for (CzastkaStacjonarna cs : czastkiStacjonarne) {
+				cs.paint(g, 2 * czastkaStacjonarnaRadius, 2 *czastkaStacjonarnaRadius);
+			}
+			
+			for (CzastkaProbna cp : czastkiProbne) {
+				cp.paint(g, 2 *czastkaProbnaRadius, 2 *czastkaProbnaRadius);
+			}
 		}
-		
-		for (CzastkaProbna cp : czastkiProbne) {
-			cp.paint(g, 2 *czastkaProbnaRadius, 2 *czastkaProbnaRadius);
+		else
+		{
+			super.paintComponent(g);
+			g.setColor(Color.white);
+			g.fillRect(10, 10, getWidth()-10, getWidth()-10);
+			reset=false;
+			repaint();
 		}
 	}
 	
@@ -212,6 +224,12 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 		symulacje.get(symulacje.size()-1).setCzastki(cz);
 		symulacje.get(symulacje.size()-1).setdt(0.001);
 		repaint();
+	}	
+	public void usunWszystkieCzastki()
+	{
+		cz.clearCzastkiProbne();
+		cz.clearCzastkiStacjonarne();
+		repaint();
 	}
 	
 	public void uruchomExecutor()
@@ -241,11 +259,6 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 			}			
 			onSymulacja=false;
 		}
-	}
-	
-	public void repaintObszarSymulacji() 
-	{
-		repaint();
 	}
 	
 //	public void awaitTerminationAfterShutdown(ExecutorService threadPool) {
@@ -331,7 +344,7 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 			}
 		}
 	}
-
+	
 	public Czastki getCz() {
 		return cz;
 	}
