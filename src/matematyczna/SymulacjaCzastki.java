@@ -45,8 +45,6 @@ public class SymulacjaCzastki implements Runnable {
 				sumaEx+=oblicz.czastkaEx(czastki.getCzastkeStacjonarna(i).getX(), czastki.getCzastkeStacjonarna(i).getY(),czastki.getCzastkeProbna(id).getX() ,czastki.getCzastkeProbna(id).getY(), czastki.getCzastkeStacjonarna(i).getLadunek());
 				sumaEy+=oblicz.czastkaEy(czastki.getCzastkeStacjonarna(i).getX(), czastki.getCzastkeStacjonarna(i).getY(),czastki.getCzastkeProbna(id).getX() ,czastki.getCzastkeProbna(id).getY(), czastki.getCzastkeStacjonarna(i).getLadunek());
 		}
-		System.out.println("sumaEx: " + sumaEx);
-		System.out.println("iloscCzStacjonarnych: " + czastki.getIloscCzStacjon());
 		double masa = cz.getMasa();
 		double q = cz.getLadunek();
 		dvx = q/masa*sumaEx*dt;

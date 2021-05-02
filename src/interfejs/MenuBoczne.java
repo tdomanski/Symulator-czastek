@@ -228,7 +228,6 @@ public class MenuBoczne extends JPanel {
 		JFileChooser jfc = new JFileChooser();
 		int returnValue = jfc.showOpenDialog(null);
   		if (returnValue == JFileChooser.APPROVE_OPTION) {
-<<<<<<< Upstream, based on branch 'main' of https://github.com/tdomanski/PO_Java_Projekt
 	  		if(jfc.getSelectedFile()!=null)
 	  		{
 	  	  	    selectedFile=jfc.getSelectedFile();
@@ -267,7 +266,6 @@ public class MenuBoczne extends JPanel {
 	  	  	    }
 	  		}
 
-=======
   	    selectedFile=jfc.getSelectedFile();
   	    int nieWczytane=0;
   	    try (BufferedReader br = new BufferedReader(new FileReader(selectedFile))) {
@@ -302,8 +300,7 @@ public class MenuBoczne extends JPanel {
   	    {
   	    	obszarSymulacji.repaint();
   	    }
->>>>>>> 81c606e Przy imporcie wczytywanie pierwszego parametru było zdublowane
-  	    }
+  		}
   		else
   		{
   			JOptionPane.showMessageDialog (null, "Brak wybranego pliku!");
