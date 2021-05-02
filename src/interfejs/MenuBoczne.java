@@ -240,17 +240,20 @@ public class MenuBoczne extends JPanel {
 	  	  	    	while ((line = br.readLine()) != null) {
 	  	  	    		//System.out.println(line);
 	  	  	    		String[] parametry = line.split(" ");
-	  	  	    		System.out.print(parametry[0]+"\n");
+	  	  	    		obszarSymulacji.setCzastkaStacjonarnaRadius(obszarSymulacji.getHeight()/50); // Skalowanie rozmiarow czastek do rozmiaru obszaru symulacji
+	  	  	    		obszarSymulacji.setCzastkaProbnaRadius(obszarSymulacji.getHeight()/100);
 	  	  	    		if(parametry[0].equals("S")) // Wczytywanie czastki stacjonarnej
 	  	  	    		{
-	  	  	    			CzastkaStacjonarna cs = new CzastkaStacjonarna(Integer.parseInt(parametry[1]), Integer.parseInt(parametry[1]), Double.parseDouble(parametry[3]));
+	  	  	    			CzastkaStacjonarna cs = new CzastkaStacjonarna(Integer.parseInt(parametry[1]), Integer.parseInt(parametry[2]), Double.parseDouble(parametry[3]));
 	  	  	    			obszarSymulacji.dodajCzastkeStacjonarna(cs);
+	  	  	    			//obszarSymulacji.repaint();
 	  	  	    		}
 	  	  	    		else if(parametry[0].equals("F")) // Wczytywanie czastki swobodnej
 	  	  	    		{
-	  	  	    			CzastkaProbna cp = new CzastkaProbna(Integer.parseInt(parametry[1]), Integer.parseInt(parametry[1]), Double.parseDouble(parametry[3]), Double.parseDouble(parametry[4]), 0, 0, id);
+	  	  	    			CzastkaProbna cp = new CzastkaProbna(Integer.parseInt(parametry[1]), Integer.parseInt(parametry[2]), Double.parseDouble(parametry[3]), Double.parseDouble(parametry[4]), 0, 0, id);
 	  	  	    			obszarSymulacji.dodajCzastkeProbna(cp);
 	  	  	    			id++;
+	  	  	    			//obszarSymulacji.repaint();
 	  	  	    		}
 	  	  	    		else
 	  	  	    		{
