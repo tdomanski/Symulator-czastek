@@ -24,6 +24,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Popup;
 import javax.swing.PopupFactory;
@@ -53,7 +54,7 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 	private String aktualnyContent;//informacja, czy aktualnie wyœwietlane jest pole wektorowe, czy trajektorie cz¹stek
 	private ExecutorService exec;
 	private final int ARR_SIZE = 3;
-	
+	private boolean onSymulacja = false;
 	public ObszarSymulacji() {
 		this.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(10, 10, 10, 10),  new EtchedBorder(Color.black,Color.black)));
 		this.setBackground(Color.white);
@@ -216,21 +217,32 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 	
 	public void uruchomExecutor()
 	{
-		exec = Executors.newFixedThreadPool(symulacje.size());
-		for (SymulacjaCzastki sym : symulacje) {
-			sym.setOnSymulacja(true);
-			exec.execute(sym);
+		if(symulacje.size()>0)
+		{
+			exec = Executors.newFixedThreadPool(symulacje.size());
+			for (SymulacjaCzastki sym : symulacje) {
+				sym.setOnSymulacja(true);
+				exec.execute(sym);
+			}
+			onSymulacja = true;
 		}
-		
+		else
+		{
+			JOptionPane.showMessageDialog (null, "Symulacja nie zosta³a uruchomiona - brak dodanych cz¹stek!");
+		}
 	}
 	
 	
 	
 	public void wylaczExecutor()
 	{
-		exec.shutdown();
-		for (SymulacjaCzastki sym : symulacje) {
-			sym.setOnSymulacja(false);
+		if(onSymulacja)
+		{
+			exec.shutdown();
+			for (SymulacjaCzastki sym : symulacje) {
+				sym.setOnSymulacja(false);
+			}			
+			onSymulacja=false;
 		}
 	}
 	
