@@ -23,7 +23,16 @@ public class Czastki {
 		czastkiStacjonarne.add(cz);
 		iloscCzStacjon++;
 	}
-	
+	public void clearCzastkiProbne()
+	{
+		czastkiProbne.clear();
+		iloscCzProbnych=0;
+	}
+	public void clearCzastkiStacjonarne()
+	{
+		czastkiStacjonarne.clear();
+		iloscCzStacjon=0;
+	}
 	public List<CzastkaProbna> getCzastkiProbne() {
 		return czastkiProbne;
 	}
