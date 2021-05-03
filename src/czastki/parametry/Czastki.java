@@ -46,6 +46,22 @@ public class Czastki {
 		return czastkiStacjonarne.get(i);
 	}
 
+	public void setSymulacja(boolean symulacjaOn)
+	{
+		for(CzastkaProbna cz: czastkiProbne)
+		{
+			cz.setSymulacjaOn(symulacjaOn);
+		}
+	}
+	
+	public void setTrajektorie(boolean trajektorieOn)
+	{
+		for(CzastkaProbna cz: czastkiProbne)
+		{
+			cz.setTrajektorieOn(trajektorieOn);
+		}
+	}
+	
 	public int getIloscCzProbnych() {
 		return iloscCzProbnych;
 	}
