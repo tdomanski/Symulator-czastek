@@ -199,12 +199,14 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 	public void przelaczPoleTrajektorie() {
 		if (aktualnyContent == "Pole") {
 			aktualnyContent = "Trajektorie";
+			cz.setTrajektorie(true);
 			//System.out.println("Teraz trajektorie");
 			repaint();
 		}
 		
 		else if (aktualnyContent == "Trajektorie") {
 			aktualnyContent = "Pole";
+			cz.setTrajektorie(false);
 			//System.out.println("Teraz pole");
 			repaint();
 		}
