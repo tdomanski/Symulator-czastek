@@ -78,9 +78,8 @@ public class SymulacjaCzastki implements Runnable {
 		this.dt=dt;
 	}
 	
-	
-	
 	public void setOnSymulacja(boolean onSymulacja) {
+		czastki.setSymulacja(onSymulacja);
 		this.onSymulacja = onSymulacja;
 	}
 
