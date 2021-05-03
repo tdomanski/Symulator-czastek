@@ -1,9 +1,13 @@
 package czastki.parametry;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -21,7 +25,11 @@ public class CzastkaProbna {
 	private int id; // numer czastki
 	private double Ex;
 	private double Ey;
+	private List<Integer> listX;
+	private List<Integer> listY;
 	private SymulacjaCzastki sym;
+	private boolean trajektorieOn = false;
+	private boolean symulacjaOn = false;
 	public final BufferedImage plusChargeImage = loadBufferedImage("/pluscharge.png");
 	public final BufferedImage minusChargeImage = loadBufferedImage("/minuscharge.png");
 	public final BufferedImage zeroChargeImage = loadBufferedImage("/zerocharge.png");
@@ -34,6 +42,10 @@ public class CzastkaProbna {
 		this.vx = vx;
 		this.vy = vy;
 		this.id=id;
+		listX=new ArrayList<Integer>();
+		listX.add(x);
+		listY=new ArrayList<Integer>();
+		listY.add(y);
 		sym = new SymulacjaCzastki(this);
 	}
 	
@@ -46,6 +58,10 @@ public class CzastkaProbna {
 	}
 
 	public void setX(int x) {
+		if(symulacjaOn)
+		{
+			listX.add(x);
+		}
 		this.x = x;
 	}
 
@@ -54,6 +70,10 @@ public class CzastkaProbna {
 	}
 
 	public void setY(int y) {
+		if(symulacjaOn)
+		{
+			listY.add(y);
+		}
 		this.y = y;
 	}
 
@@ -113,6 +133,19 @@ public class CzastkaProbna {
 		Ey = ey;
 	}
 	
+	public void setTrajektorieOn(boolean trajektorieOn) {
+		this.trajektorieOn = trajektorieOn;
+	}
+	
+	public void setSymulacjaOn(boolean symulacjaOn) {
+		this.symulacjaOn = symulacjaOn;
+		if(symulacjaOn)
+		{
+			listX.clear();
+			listY.clear();
+		}
+	}
+
 	private BufferedImage loadBufferedImage(String string)
 	{
 	    try
@@ -134,6 +167,20 @@ public class CzastkaProbna {
 			g.drawImage(minusChargeImage, x - width/2, y - height/2, width, height, null);
 		else if (this.ladunek == 0)
 			g.drawImage(zeroChargeImage, x - width/2, y - height/2, width, height, null);
+		
+		if(symulacjaOn==true&&trajektorieOn==true)
+		{
+			if(listX.size()>1)
+			{
+				Graphics2D g2 = (Graphics2D) g;
+				g2.setStroke(new BasicStroke(2));
+				g2.setColor(Color.black);
+				for(int i=0;i<listX.size()-1;i++)
+				{
+					g.drawLine(listX.get(i),listY.get(i),listX.get(i+1),listY.get(i+1));
+				}
+			}
+		}
 	}
 
 }
