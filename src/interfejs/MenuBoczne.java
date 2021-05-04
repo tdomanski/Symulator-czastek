@@ -253,7 +253,7 @@ public class MenuBoczne extends JPanel {
 	  	  	    		String[] parametry = line.split(" ");
 	  	  	    		obszarSymulacji.setCzastkaStacjonarnaRadius(obszarSymulacji.getHeight()/50); // Skalowanie rozmiarow czastek do rozmiaru obszaru symulacji
 	  	  	    		obszarSymulacji.setCzastkaProbnaRadius(obszarSymulacji.getHeight()/100);
-	  	  	    		System.out.print(parametry[0]+"\n");
+	  	  	    		//System.out.print(parametry[0]+"\n");
 	  	  	    		if(parametry[0].equals("S")) // Wczytywanie czastki stacjonarnej
 	  	  	    		{
 	  	  	    			CzastkaStacjonarna cs = new CzastkaStacjonarna(Integer.parseInt(parametry[1]), Integer.parseInt(parametry[2]), Double.parseDouble(parametry[3]));
@@ -261,7 +261,7 @@ public class MenuBoczne extends JPanel {
 	  	  	    		}
 	  	  	    		else if(parametry[0].equals("F")) // Wczytywanie czastki swobodnej
 	  	  	    		{
-	  	  	    			CzastkaProbna cp = new CzastkaProbna(Integer.parseInt(parametry[1]), Integer.parseInt(parametry[2]), Double.parseDouble(parametry[3]), Double.parseDouble(parametry[4]), 0, 0, id);
+	  	  	    			CzastkaProbna cp = new CzastkaProbna(Integer.parseInt(parametry[1]), Integer.parseInt(parametry[2]), Double.parseDouble(parametry[3]), Double.parseDouble(parametry[4]), Double.parseDouble(parametry[5]), Double.parseDouble(parametry[6]), id);
 	  	  	    			obszarSymulacji.dodajCzastkeProbna(cp);
 	  	  	    			id++;
 	  	  	    		}
@@ -275,7 +275,7 @@ public class MenuBoczne extends JPanel {
 	  	  	    {
 	  	  	    	JOptionPane.showMessageDialog (null, "Nie wczytano "+nieWczytane+" parametrów cząstek!");
 	  	  	    }
-	  		
+	  	  	    
 	  	  	}
 
 
@@ -307,7 +307,7 @@ public class MenuBoczne extends JPanel {
 				String line = null;
 						try {
 						fw = new FileWriter(selectedFile);
-						//Stacjonarne - wczytywanie do pliku
+						//Stacjonarne - zapisywanie do pliku
 						for(int i=0;i<sizeStacjonarne;i++) // Format: S X Y Ladunek
 						{
 							if(i!=sizeStacjonarne-1)
@@ -320,7 +320,7 @@ public class MenuBoczne extends JPanel {
 							}
 							fw.write(line);		
 						}
-						//Probne - wczytywanie do pliku
+						//Probne - zapisywanie do pliku
 						for(int i=0;i<sizeProbne;i++)// Format: F X Y Masa Ladunek
 						{
 							if(i==0)
@@ -334,7 +334,7 @@ public class MenuBoczne extends JPanel {
 							}
 							else
 							{
-								line ="F "+czastki.getCzastkeProbna(i).getX()+" "+czastki.getCzastkeProbna(i).getY()+" "+czastki.getCzastkeProbna(i).getMasa()+" "+czastki.getCzastkeProbna(i).getLadunek();
+								line ="F "+czastki.getCzastkeProbna(i).getX()+" "+czastki.getCzastkeProbna(i).getY()+" "+czastki.getCzastkeProbna(i).getMasa()+" "+czastki.getCzastkeProbna(i).getLadunek()+" "+czastki.getCzastkeProbna(i).getVx()+" "+czastki.getCzastkeProbna(i).getVy();
 								fw.write(line);
 							}
 						}
