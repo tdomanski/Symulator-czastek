@@ -1,4 +1,4 @@
-# Symulator cząstek w pole elektrostatycznym
+# Symulator cząstek w polu elektrostatycznym
 Program pozwala na płynną symulacje cząstek w polu elektrostatycznym z uwzględnieniem ich masy oraz ładunków. 
 # Funkcjonalności programu:
 - Uruchamianie oraz wyłączanie symulacji
