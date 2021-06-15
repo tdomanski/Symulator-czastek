@@ -12,3 +12,4 @@ Program pozwala na płynną symulacje cząstek w polu elektrostatycznym z uwzgl�
 - Tomir Domański @tdomanski
 # Wykonanie:
 Projekt został wykonany w ramach zajęć z Programowania Obiektowego na Wydziale Fizyki Politechniki Warszawskiej
+Projekt został publicznie udostępniony w dniu 15.06.2021
