@@ -178,7 +178,7 @@ public class MenuBoczne extends JPanel {
 	public void ustawWyborNowaCzastkaStacjonarna() {
 		czastkaStacjonarnaSelected = true;
 		czastkaProbnaSelected = false;
-		parametryNowejCzastkiLabel.setText("<html>Parametry nowej cząstki<br/> stacjonarnej<html>");
+		parametryNowejCzastkiLabel.setText("<html>Parametry nowej cząstki stacjonarnej<html>");
 		masaField.setEditable(false);
 		ladunekField.setEditable(true);
 	}
@@ -186,7 +186,7 @@ public class MenuBoczne extends JPanel {
 	public void ustawWyborNowaCzastkaProbna() {
 		czastkaProbnaSelected = true;
 		czastkaStacjonarnaSelected = false;
-		parametryNowejCzastkiLabel.setText("<html>Parametry nowej cząstki<br/> próbnej<html>");
+		parametryNowejCzastkiLabel.setText("<html>Parametry nowej cząstki próbnej<html>");
 		masaField.setEditable(true);
 		ladunekField.setEditable(true);
 	}
@@ -204,11 +204,11 @@ public class MenuBoczne extends JPanel {
 					CzastkaStacjonarna cs = new CzastkaStacjonarna(randomX, randomY, Double.valueOf(ladunekField.getText()));
 					obszarSymulacji.dodajCzastkeStacjonarna(cs);
 				} catch (IllegalArgumentException e) {
-					JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz łaadunek w postaci liczby rzeczywistej");
+					JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadź ładunek w postaci liczby rzeczywistej");
 				}
 			}
 			else
-				JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadz ładunek w postaci liczby rzeczywistej");
+				JOptionPane.showMessageDialog(obszarSymulacji, "Wprowadź ładunek w postaci liczby rzeczywistej");
 		}
 		
 		else if (czastkaProbnaSelected == true) { // Dodawanie czastki probnej
