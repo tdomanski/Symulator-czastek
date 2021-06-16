@@ -88,7 +88,7 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 		{
 			super.paintComponent(g);
 			
-			if (aktualnyContent == "Pole" && czastkiStacjonarne.isEmpty() == false)
+			if (aktualnyContent == "Pole" && (czastkiStacjonarne.isEmpty() == false || czastkiProbne.isEmpty() == false))
 				this.obliczINarysujPoleElektryczne(g);
 			
 			for (CzastkaStacjonarna cs : czastkiStacjonarne) {
@@ -298,6 +298,11 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 		for (CzastkaStacjonarna cs : czastkiStacjonarne) {
 			Ex += obliczenia.czastkaEx(cs.getX(), cs.getY(), x0, y0, cs.getLadunek());
 		}
+		
+		for (CzastkaProbna cp : czastkiProbne) {
+			Ex += obliczenia.czastkaEx(cp.getX(), cp.getY(), x0, y0, cp.getLadunek());
+		}
+		
 		//System.out.println(Ex);
 		return Ex;
 	}
@@ -307,6 +312,11 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 		for (CzastkaStacjonarna cs : czastkiStacjonarne) {
 			Ey += obliczenia.czastkaEy(cs.getX(), cs.getY(), x0, y0, cs.getLadunek());
 		}
+		
+		for (CzastkaProbna cp : czastkiProbne) {
+			Ey += obliczenia.czastkaEy(cp.getX(), cp.getY(), x0, y0, cp.getLadunek());
+		}
+		
 		//System.out.println(Ey);
 		return Ey;
 	}
@@ -330,6 +340,12 @@ public class ObszarSymulacji extends JPanel implements MouseListener, MouseMotio
 			if (cs.getLadunek() != 0)
 				nonZeroCharges += 1;
 		}
+		
+		for (CzastkaProbna cp : czastkiProbne) {
+			if (cp.getLadunek() != 0)
+				nonZeroCharges += 1;
+		}
+		
 		if (nonZeroCharges > 0) {
 			for (int xi = 20; xi < this.getWidth() - 20; xi += 20) {
 				for (int yi = 20; yi < this.getHeight() - 20; yi += 20) {

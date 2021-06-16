@@ -30,7 +30,7 @@ public class SymulacjaCzastki implements Runnable {
 	{
 		double sumaEx=0;
 		double sumaEy=0;
-		/*
+		
 		for(int j=0;j<czastki.getIloscCzProbnych()-1;j++)
 		{
 			if(j!=id)
@@ -39,7 +39,7 @@ public class SymulacjaCzastki implements Runnable {
 				sumaEy+=oblicz.czastkaEy(czastki.getCzastkeProbna(j).getX(), czastki.getCzastkeProbna(j).getY(),czastki.getCzastkeProbna(id).getX() , czastki.getCzastkeProbna(id).getY(), czastki.getCzastkeProbna(j).getLadunek());
 			}
 		}
-		*/
+		
 		for(int i=0;i<czastki.getIloscCzStacjon();i++)
 		{
 				sumaEx+=oblicz.czastkaEx(czastki.getCzastkeStacjonarna(i).getX(), czastki.getCzastkeStacjonarna(i).getY(),czastki.getCzastkeProbna(id).getX() ,czastki.getCzastkeProbna(id).getY(), czastki.getCzastkeStacjonarna(i).getLadunek());
